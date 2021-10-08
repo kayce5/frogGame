@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private static final long serialVersionUID = -4418414814196675442L;
 	
+	//Storage Classes
 	private Frog frog1;
 	private LilyPad lilyPad;
 	
@@ -36,18 +37,27 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		
 		
 		//Initialize Frog
-		frog1 = new Frog();
 		frogLabel = new JLabel();
+		frog1 = new Frog();
 		frogImage = new ImageIcon(getClass().getResource(frog1.getFilename()));
 		frogLabel.setIcon(frogImage);
 		frogLabel.setSize(frog1.getWidth(), frog1.getHeight());
+		
 		//Initialize LilyPad
-		lilyPad = new LilyPad();
 		lilyPadLabel = new JLabel();
+		lilyPad = new LilyPad(lilyPadLabel);
 		lilyPadImage = new ImageIcon(getClass().getResource(lilyPad.getFilename()));
 		lilyPadLabel.setIcon(lilyPadImage);
 		lilyPadLabel.setSize(lilyPad.getWidth(), lilyPad.getHeight());
 		
+		//Start Button Initial 
+		startGameBtn = new JButton(" Start ");
+		startGameBtn.setSize(75, 40);
+		startGameBtn.setLocation(GameProperties.SCREEN_WIDTH - 100, GameProperties.SCREEN_HEIGHT - 90); 
+		add(startGameBtn);
+		startGameBtn.setFocusable(false); //Cannot grab focus away*
+		startGameBtn.addActionListener(this); //Add action listener to the button so it will respond
+				
 		//Main content container
 		content = getContentPane();
 		content.setBackground(Color.gray); //**Need to fix
@@ -57,24 +67,23 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		frog1.setX(400);
 		frog1.setY(535);
 		add(frogLabel);
+	
 		
-		lilyPad.setX(100);
-		lilyPad.setY(200);
+		//lilyPad.setX(100);
+		//lilyPad.setY(200);
 		add(lilyPadLabel);
+		lilyPadLabel.setVisible(lilyPad.getVisible());
+		
 		
 		//Update Label Positions - match stored values
 		frogLabel.setLocation(frog1.getX(), frog1.getY());
 		lilyPadLabel.setLocation(lilyPad.getX(), lilyPad.getY());
 		
-		//Start Button Initial 
-		startGameBtn = new JButton(" Start ");
-		startGameBtn.setSize(75, 40);
-		startGameBtn.setLocation(GameProperties.SCREEN_WIDTH - 100, GameProperties.SCREEN_HEIGHT - 90); 
-		add(startGameBtn);
-		startGameBtn.setFocusable(false); //Cannot grab focus away*
 		
+		//Container - Need Down here
 		content.addKeyListener(this); //Adds keylistener to main window
 		content.setFocusable(true); //Grabs focus for main content
+		
 		//To Completely Exit Program
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	} //End Gui Constructor
@@ -86,16 +95,25 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	public static void main(String[] args) {
 		GameMain frogGame = new GameMain();
 		frogGame.setVisible(true);
+		
+		
 
 	}
 
 
 
 	//Functions for ActionListener and KeyListener
+	//Start Button
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == startGameBtn) {
-			
+			if(lilyPad.getMoving()) { //Tell whether or not its moving
+				lilyPad.setMoving(false);
+				startGameBtn.setText("Start"); //*Just a test delete later
+			} else { //It is not moving, start, change text
+				startGameBtn.setText("Stop"); //Change Later**
+				lilyPad.moveLilyPad();
+			}
 		} 
 		
 	}
