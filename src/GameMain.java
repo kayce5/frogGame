@@ -16,11 +16,11 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	//Storage Classes
 	private Frog frog1;
 	private LilyPad lilyPad;
+	private Car car;
 	
 	//Graphic Labels
-	private JLabel frogLabel, lilyPadLabel;
-	private ImageIcon frogImage, lilyPadImage;
-	
+	private JLabel frogLabel, lilyPadLabel, carLabel;
+	private ImageIcon frogImage, lilyPadImage, carImage;
 	//Container for graphics - **set background , color etc**
 	private Container content; 
 	
@@ -34,6 +34,9 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		super("Frogger");
 		//Set Size of Screen
 		setSize(GameProperties.SCREEN_WIDTH, GameProperties.SCREEN_HEIGHT);
+		
+		//Do not allow screen to be resized
+		setResizable(false);
 		
 		
 		//Initialize Frog
@@ -49,6 +52,13 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		lilyPadImage = new ImageIcon(getClass().getResource(lilyPad.getFilename()));
 		lilyPadLabel.setIcon(lilyPadImage);
 		lilyPadLabel.setSize(lilyPad.getWidth(), lilyPad.getHeight());
+		
+		//Initialize LilyPad
+		carLabel = new JLabel();
+		car = new Car(carLabel);
+		carImage = new ImageIcon(getClass().getResource(car.getFilename()));
+		carLabel.setIcon(carImage);
+		carLabel.setSize(car.getWidth(), car.getHeight());
 		
 		//Start Button Initial 
 		startGameBtn = new JButton(" Start ");
@@ -74,11 +84,16 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		add(lilyPadLabel);
 		lilyPadLabel.setVisible(lilyPad.getVisible());
 		
+		car.setX(800);
+		car.setY(450);
+		add(carLabel);
+		carLabel.setVisible(car.getVisible());
+		
 		
 		//Update Label Positions - match stored values
 		frogLabel.setLocation(frog1.getX(), frog1.getY());
 		lilyPadLabel.setLocation(lilyPad.getX(), lilyPad.getY());
-		
+		carLabel.setLocation(car.getX(), car.getY());
 		
 		//Container - Need Down here
 		content.addKeyListener(this); //Adds keylistener to main window
@@ -107,12 +122,14 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == startGameBtn) {
-			if(lilyPad.getMoving()) { //Tell whether or not its moving
+			if(lilyPad.getMoving() && car.getMoving()) { //Tell whether or not its moving
 				lilyPad.setMoving(false);
-				startGameBtn.setText("Start"); //*Just a test delete later
+				car.setMoving(false);
+				startGameBtn.setVisible(true); //*Just a test delete later
 			} else { //It is not moving, start, change text
-				startGameBtn.setText("Stop"); //Change Later**
+				startGameBtn.setVisible(false); //Change Later**
 				lilyPad.moveLilyPad();
+				car.moveCar();
 			}
 		} 
 		
@@ -130,9 +147,36 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 
 
 
-	@Override
+	@Override //Frog Movement
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
+		int fx = frog1.getX();
+		int fy = frog1.getY();
+		
+		//Determine which key is pressed
+		if(e.getKeyCode() == KeyEvent.VK_UP) {
+			fy = fy - GameProperties.CHARACTER_STEP; 
+			//if(fy + frog1.getWidth() < 0) fy = GameProperties.SCREEN_HEIGHT; -- Need to stop frog from going off screen
+			
+			
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN){
+			fy = fy + GameProperties.CHARACTER_STEP;
+			//if(fy > GameProperties.SCREEN_HEIGHT) fy = -1 * frog1.getHeight();
+			
+		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			fx = fx - GameProperties.CHARACTER_STEP;
+			//if(fx + frog1.getWidth() < 0) fx = GameProperties.SCREEN_WIDTH;
+			
+		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			fx = fx + GameProperties.CHARACTER_STEP;
+			//if(fx > GameProperties.SCREEN_WIDTH) fx = -1 * frog1.getWidth();
+		}
+		
+		//Update
+		frog1.setX(fx);
+		frog1.setY(fy);
+		
+		frogLabel.setLocation(frog1.getX(), frog1.getY());
+
 		
 	}
 
