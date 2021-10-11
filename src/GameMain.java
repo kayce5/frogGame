@@ -46,28 +46,40 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		frogLabel.setIcon(frogImage);
 		frogLabel.setSize(frog1.getWidth(), frog1.getHeight());
 		
+		
+		
 		//Initialize LilyPad
+		lilyPad = new LilyPad();
 		lilyPadLabel = new JLabel();
-		lilyPad = new LilyPad(lilyPadLabel);
 		lilyPadImage = new ImageIcon(getClass().getResource(lilyPad.getFilename()));
 		lilyPadLabel.setIcon(lilyPadImage);
 		lilyPadLabel.setSize(lilyPad.getWidth(), lilyPad.getHeight());
+		lilyPad.setLilyPadLabel(lilyPadLabel);
 		
-		//Initialize LilyPad
+		//Initialize Car
+		car = new Car();
 		carLabel = new JLabel();
-		car = new Car(carLabel);
 		carImage = new ImageIcon(getClass().getResource(car.getFilename()));
 		carLabel.setIcon(carImage);
 		carLabel.setSize(car.getWidth(), car.getHeight());
+		car.setCarLabel(carLabel);
+		car.setFrog(frog1);
+		car.setFrogLabel(frogLabel);
+		car.setLilyPad(lilyPad);
+		car.setLilyPadLabel(lilyPadLabel);
+		
 		
 		//Start Button Initial 
 		startGameBtn = new JButton(" Start ");
-		startGameBtn.setSize(75, 40);
-		startGameBtn.setLocation(GameProperties.SCREEN_WIDTH - 100, GameProperties.SCREEN_HEIGHT - 90); 
+		startGameBtn.setSize(120, 40);
+		startGameBtn.setLocation(GameProperties.SCREEN_WIDTH - 150, GameProperties.SCREEN_HEIGHT - 90); 
 		add(startGameBtn);
 		startGameBtn.setFocusable(false); //Cannot grab focus away*
 		startGameBtn.addActionListener(this); //Add action listener to the button so it will respond
+		car.setStartGameBtn(startGameBtn);
+		lilyPad.setStartGameBtn(startGameBtn);
 				
+		
 		//Main content container
 		content = getContentPane();
 		content.setBackground(Color.gray); //**Need to fix
@@ -75,7 +87,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		
 		//Adding characters on screen
 		frog1.setX(400);
-		frog1.setY(535);
+		frog1.setY(615);
 		add(frogLabel);
 	
 		
@@ -85,7 +97,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		lilyPadLabel.setVisible(lilyPad.getVisible());
 		
 		car.setX(800);
-		car.setY(450);
+		car.setY(525);
 		add(carLabel);
 		carLabel.setVisible(car.getVisible());
 		
@@ -110,9 +122,6 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	public static void main(String[] args) {
 		GameMain frogGame = new GameMain();
 		frogGame.setVisible(true);
-		
-		
-
 	}
 
 
@@ -125,9 +134,9 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			if(lilyPad.getMoving() && car.getMoving()) { //Tell whether or not its moving
 				lilyPad.setMoving(false);
 				car.setMoving(false);
-				startGameBtn.setVisible(true); //*Just a test delete later
-			} else { //It is not moving, start, change text
-				startGameBtn.setVisible(false); //Change Later**
+				startGameBtn.setVisible(true); //Hide Button
+			} else { 
+				startGameBtn.setVisible(false); //Show Button
 				lilyPad.moveLilyPad();
 				car.moveCar();
 			}

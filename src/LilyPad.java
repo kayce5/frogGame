@@ -5,8 +5,11 @@ public class LilyPad extends Sprite implements Runnable {
 	
 	private Boolean moving, visible;
 	private Thread lilyT;
-	private JLabel lilyPadLabel;
+	private JLabel lilyPadLabel, frogLabel;
 	private JButton startGameBtn;
+	private Frog frog1;
+	private Car car;
+
 	
 	//Getters and Setters
 	public Boolean getVisible() {
@@ -30,9 +33,24 @@ public class LilyPad extends Sprite implements Runnable {
 		this.startGameBtn = temp;
 	}
 	
+	//Setter for Frog
+	public void setFrog(Frog temp) {
+		this.frog1 = temp;
+	}
+	
+	//Setter for Frog Label
+	public void setFrogLabel(JLabel temp) {
+		this.frogLabel = temp;
+	}
+	
 	//Setter for LilyPad Label
 	public void setLilyPadLabel(JLabel temp) {
 		this.lilyPadLabel = temp;
+	}
+	
+	//Setter for Car
+	public void setCar(Car temp) {
+		this.car = temp;
 	}
 
 	//Default Constructor
@@ -67,20 +85,20 @@ public class LilyPad extends Sprite implements Runnable {
 		while(moving) { //Code here will remain moving until moving false - infinate loop
 			//Move Routine
 			//Get current x/y
-			int tx = this.x;
-			int ty = this.y;
+			int lx = this.x;
+			int ly = this.y;
 			
 			//Move left to right 
-			tx = tx + GameProperties.CHARACTER_STEP;
+			lx = lx + GameProperties.CHARACTER_STEP;
 			
 			//If graphic has went off screen
-			if(tx > GameProperties.SCREEN_WIDTH) {
-				tx = -1 * this.width;
+			if(lx > GameProperties.SCREEN_WIDTH) {
+				lx = -1 * this.width;
 			}
 			
-			//Update the x
-			this.x = tx;
-			this.y = ty;
+			//Update the x/y
+			this.setX(lx);
+			this.setY(ly);
 			
 			//Update LilyPad Label
 			lilyPadLabel.setLocation(this.x, this.y);

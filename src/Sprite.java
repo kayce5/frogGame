@@ -1,9 +1,12 @@
+import java.awt.Rectangle;
+
 //Basics for characters
 public class Sprite {
 	
 	//Define Data Members 
 	protected int width, height ; //Size
 	protected int x, y; //Using these for the upper left coordinate 
+	protected Rectangle rectangle; 
 	protected String filename;
 	
 	//Getters and Setters 
@@ -12,25 +15,34 @@ public class Sprite {
 	}
 	public void setWidth(int width) {
 		this.width = width;
+		this.rectangle.setSize(this.width, this.height);
 	}
 	public int getHeight() {
 		return height;
 	}
 	public void setHeight(int height) {
 		this.height = height;
+		this.rectangle.setSize(this.width, this.height);
 	}
 	public int getX() {
 		return x;
 	}
 	public void setX(int x) {
 		this.x = x;
+		this.rectangle.setLocation(this.x, this.y);
 	}
 	public int getY() {
 		return y;
 	}
 	public void setY(int y) {
 		this.y = y;
+		this.rectangle.setLocation(this.x, this.y);
 	}
+	
+	public Rectangle getRectangle() {
+		return this.rectangle;
+	}
+	
 	public String getFilename() {
 		return filename;
 	}
@@ -46,6 +58,7 @@ public class Sprite {
 		this.x = 0;
 		this.y = 0; 
 		this.filename = "";
+		this.rectangle = new Rectangle(this.x, this.y, this.width, this.height); //Has to be at bottom so x,y set
 	}
 	
 	//Secondary Constructor 
@@ -56,6 +69,7 @@ public class Sprite {
 		this.x = x;
 		this.y = y;
 		this.filename = filename;
+		this.rectangle = new Rectangle(this.x, this.y, this.width, this.height);
 	}
 	
 	//Secondary Constructor 
@@ -66,6 +80,7 @@ public class Sprite {
 		this.x = 0;
 		this.y = 0;
 		this.filename = filename;
+		this.rectangle = new Rectangle(this.x, this.y, this.width, this.height);
 	} 
 	
 	//Display Function 
