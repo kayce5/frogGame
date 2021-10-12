@@ -19,7 +19,8 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private Car car;
 	
 	//Graphic Labels
-	private JLabel frogLabel, lilyPadLabel, carLabel;
+	private JLabel frogLabel, lilyPadLabel;
+	private JLabel carLabel;
 	private ImageIcon frogImage, lilyPadImage, carImage;
 	//Container for graphics - **set background , color etc**
 	private Container content; 
@@ -96,8 +97,12 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		add(lilyPadLabel);
 		lilyPadLabel.setVisible(lilyPad.getVisible());
 		
+		//???
 		car.setX(800);
 		car.setY(525);
+		
+		
+		
 		add(carLabel);
 		carLabel.setVisible(car.getVisible());
 		
@@ -134,6 +139,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			if(lilyPad.getMoving() && car.getMoving()) { //Tell whether or not its moving
 				lilyPad.setMoving(false);
 				car.setMoving(false);
+				
 				startGameBtn.setVisible(true); //Hide Button
 			} else { 
 				startGameBtn.setVisible(false); //Show Button
