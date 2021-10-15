@@ -1,6 +1,6 @@
 
 public class Frog extends Sprite {
 	public Frog () {
-		super(50, 50, "frog.png");
+		super(60, 50, "frog.png");
 	}	
 }

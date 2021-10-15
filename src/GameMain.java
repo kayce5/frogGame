@@ -20,7 +20,8 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	
 	//Graphic Labels
 	private JLabel frogLabel, lilyPadLabel;
-	private JLabel carLabel;
+	private JLabel carLabel; //?? private JLabel[] carLabel;
+	
 	private ImageIcon frogImage, lilyPadImage, carImage;
 	//Container for graphics - **set background , color etc**
 	private Container content; 
@@ -64,6 +65,9 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		carLabel.setIcon(carImage);
 		carLabel.setSize(car.getWidth(), car.getHeight());
 		car.setCarLabel(carLabel);
+		
+		
+		
 		car.setFrog(frog1);
 		car.setFrogLabel(frogLabel);
 		car.setLilyPad(lilyPad);
@@ -101,16 +105,19 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		car.setX(800);
 		car.setY(525);
 		
-		
-		
 		add(carLabel);
 		carLabel.setVisible(car.getVisible());
+		
 		
 		
 		//Update Label Positions - match stored values
 		frogLabel.setLocation(frog1.getX(), frog1.getY());
 		lilyPadLabel.setLocation(lilyPad.getX(), lilyPad.getY());
+		
 		carLabel.setLocation(car.getX(), car.getY());
+		
+		
+		
 		
 		//Container - Need Down here
 		content.addKeyListener(this); //Adds keylistener to main window
@@ -170,19 +177,23 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		//Determine which key is pressed
 		if(e.getKeyCode() == KeyEvent.VK_UP) {
 			fy = fy - GameProperties.CHARACTER_STEP; 
+			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogUp.png")) );
 			//if(fy + frog1.getWidth() < 0) fy = GameProperties.SCREEN_HEIGHT; -- Need to stop frog from going off screen
 			
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN){
 			fy = fy + GameProperties.CHARACTER_STEP;
+			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDown.png")) );
 			//if(fy > GameProperties.SCREEN_HEIGHT) fy = -1 * frog1.getHeight();
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			fx = fx - GameProperties.CHARACTER_STEP;
+			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogLeft.png")) );
 			//if(fx + frog1.getWidth() < 0) fx = GameProperties.SCREEN_WIDTH;
 			
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			fx = fx + GameProperties.CHARACTER_STEP;
+			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogRight.png")) );
 			//if(fx > GameProperties.SCREEN_WIDTH) fx = -1 * frog1.getWidth();
 		}
 		
@@ -200,7 +211,18 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getKeyCode() == KeyEvent.VK_UP) {
+			frogLabel.setIcon(new ImageIcon(getClass().getResource("frog.png")) );
+			
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN){
+			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDown2.png")) );
+			
+		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogLeft2.png")) );
+			
+		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogRight2.png")) );
+		}
 		
 	}
 
