@@ -59,6 +59,11 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		lilyPadLabel.setIcon(lilyPadImage);
 		lilyPadLabel.setSize(lilyPad.getWidth(), lilyPad.getHeight());
 		lilyPad.setLilyPadLabel(lilyPadLabel);
+		lilyPad.setFrog(frog1);
+		lilyPad.setFrogLabel(frogLabel);
+		lilyPad.setCar(car);
+		lilyPad.setCarLabel(carLabel);
+		
 		
 		//Initialize Car
 		car = new Car();
@@ -209,25 +214,40 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN){
 			fy = fy + GameProperties.CHARACTER_STEP;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDown.png")) );
-			//if(fy > GameProperties.SCREEN_HEIGHT) fy = -1 * frog1.getHeight();
+			
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			fx = fx - GameProperties.CHARACTER_STEP;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogLeft.png")) );
-			//if(fx + frog1.getWidth() < 0) fx = GameProperties.SCREEN_WIDTH;
+			
+			
 			
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			fx = fx + GameProperties.CHARACTER_STEP;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogRight.png")) );
-			//if(fx > GameProperties.SCREEN_WIDTH) fx = -1 * frog1.getWidth();
+			
 		}
+		
+		
 		
 		//Update
 		frog1.setX(fx);
 		frog1.setY(fy);
 		
 		frogLabel.setLocation(frog1.getX(), frog1.getY());
-
+		
+		//Stop Character from going off screen **Figure out down and right
+		if(fx > GameProperties.SCREEN_WIDTH) {
+			frog1.setX(GameProperties.SCREEN_WIDTH);
+		} else if(fx < 0) {
+			frog1.setX(0);
+		}
+		
+		if(fy > GameProperties.SCREEN_HEIGHT) {
+			frog1.setY(GameProperties.SCREEN_HEIGHT);
+		} else if(fy < 0) {
+			frog1.setY(0);
+		}
 		
 	}
 

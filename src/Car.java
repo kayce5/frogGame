@@ -130,9 +130,10 @@ public class Car extends Sprite implements Runnable {
 	
 	private void detectCarCollision() {
 		if(this.rectangle.intersects(frog1.getRectangle())) {
-			System.out.print("Colision");
+			System.out.print("Colision Car");
 			this.moving = (false);
-			lilyPad.setMoving(false);
+			
+			//lilyPad.setMoving(false);
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDead.png")) );
 			startGameBtn.setText("Play Again");
 			startGameBtn.setVisible(true);
