@@ -62,7 +62,7 @@ public class LilyPad extends Sprite implements Runnable {
 	
 	//Constructor to use LilyPad Label
 	public LilyPad(JLabel temp) {
-		super(124, 200, "lilypad1.png");
+		super(180, 300, "lilypad1.png");
 		this.visible = (true);
 		this.moving = false;
 		this.lilyPadLabel = temp;

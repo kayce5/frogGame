@@ -17,12 +17,14 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private Frog frog1;
 	private LilyPad lilyPad;
 	private Car car;
+	private Water water;
+	private Road road;
 	
 	//Graphic Labels
-	private JLabel frogLabel, lilyPadLabel;
+	private JLabel frogLabel, lilyPadLabel, waterLabel, roadLabel;
 	private JLabel carLabel; //?? private JLabel[] carLabel;
 	
-	private ImageIcon frogImage, lilyPadImage, carImage;
+	private ImageIcon frogImage, lilyPadImage, carImage, waterImage, roadImage;
 	//Container for graphics - **set background , color etc**
 	private Container content; 
 	
@@ -65,14 +67,24 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		carLabel.setIcon(carImage);
 		carLabel.setSize(car.getWidth(), car.getHeight());
 		car.setCarLabel(carLabel);
-		
-		
-		
 		car.setFrog(frog1);
 		car.setFrogLabel(frogLabel);
 		car.setLilyPad(lilyPad);
 		car.setLilyPadLabel(lilyPadLabel);
 		
+		//Initialize Water
+		waterLabel = new JLabel();
+		water = new Water();
+		waterImage = new ImageIcon(getClass().getResource(water.getFilename()));
+		waterLabel.setIcon(waterImage);
+		waterLabel.setSize(1000, 800);
+		
+		//Initialize Road
+		roadLabel = new JLabel();
+		road = new Road();
+		roadImage = new ImageIcon(getClass().getResource(road.getFilename()));
+		roadLabel.setIcon(roadImage);
+		roadLabel.setSize(1000, 800);
 		
 		//Start Button Initial 
 		startGameBtn = new JButton(" Start ");
@@ -87,26 +99,36 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		
 		//Main content container
 		content = getContentPane();
-		content.setBackground(Color.gray); //**Need to fix
+		Color myColor = Color.decode("#477d36");
+		content.setBackground(myColor); //**Need to fix
 		setLayout(null); //Allow to position characters on screen
 		
 		//Adding characters on screen
 		frog1.setX(400);
-		frog1.setY(615);
+		frog1.setY(715);
 		add(frogLabel);
 	
 		
-		//lilyPad.setX(100);
-		//lilyPad.setY(200);
+		lilyPad.setX(20);
+		lilyPad.setY(230);
 		add(lilyPadLabel);
 		lilyPadLabel.setVisible(lilyPad.getVisible());
 		
 		//???
-		car.setX(800);
-		car.setY(525);
+		car.setX(850);
+		car.setY(650);
 		
 		add(carLabel);
 		carLabel.setVisible(car.getVisible());
+		
+		//Add Water 
+		waterLabel.setLocation(0, -180);
+		add(waterLabel);
+		
+		//Add Water 
+		roadLabel.setLocation(0, 170);
+		add(roadLabel);
+
 		
 		
 		
@@ -150,6 +172,9 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 				startGameBtn.setVisible(true); //Hide Button
 			} else { 
 				startGameBtn.setVisible(false); //Show Button
+				frog1.setX(400);
+				frog1.setY(715);
+				frogLabel.setLocation(frog1.getX(), frog1.getY());
 				lilyPad.moveLilyPad();
 				car.moveCar();
 			}

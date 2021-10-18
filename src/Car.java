@@ -118,6 +118,7 @@ public class Car extends Sprite implements Runnable {
 			this.detectCarCollision();
 			
 			
+			
 			//Pause it 
 			try {
 				Thread.sleep(200);
