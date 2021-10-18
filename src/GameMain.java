@@ -61,8 +61,6 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		lilyPad.setLilyPadLabel(lilyPadLabel);
 		lilyPad.setFrog(frog1);
 		lilyPad.setFrogLabel(frogLabel);
-		lilyPad.setCar(car);
-		lilyPad.setCarLabel(carLabel);
 		
 		
 		//Initialize Car
@@ -74,9 +72,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		car.setCarLabel(carLabel);
 		car.setFrog(frog1);
 		car.setFrogLabel(frogLabel);
-		car.setLilyPad(lilyPad);
-		car.setLilyPadLabel(lilyPadLabel);
-		
+	
 		//Initialize Water
 		waterLabel = new JLabel();
 		water = new Water();

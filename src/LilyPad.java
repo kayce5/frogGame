@@ -6,11 +6,10 @@ public class LilyPad extends Sprite implements Runnable {
 	
 	private Boolean moving, visible;
 	private Thread lilyT;
-	private JLabel lilyPadLabel, frogLabel, carLabel;
+	private JLabel lilyPadLabel, frogLabel;
 	private JButton startGameBtn;
 	private Frog frog1;
-	private Car car;
-
+	
 	
 	
 	
@@ -60,17 +59,6 @@ public class LilyPad extends Sprite implements Runnable {
 	public void setLilyPadLabel(JLabel temp) {
 		this.lilyPadLabel = temp;
 	}
-	
-	//Setter for Car
-	public void setCar(Car temp) {
-		this.car = temp;
-	}
-	
-	//Setter for Car Label
-		public void setCarLabel(JLabel temp) {
-			this.carLabel = temp;
-		}
-
 
 	//Default Constructor
 	public LilyPad() {
