@@ -113,7 +113,6 @@ public class Car extends Sprite implements Runnable {
 			this.detectCarCollision();
 			
 			
-			
 			//Pause it 
 			try {
 				Thread.sleep(200);
@@ -134,7 +133,7 @@ public class Car extends Sprite implements Runnable {
 			GameMain.life = GameMain.life - 1;
 			if(GameMain.life != 0) {
 				JOptionPane.showMessageDialog(null, "Uh-Oh");
-				System.out.printf("Lives: %d", GameMain.life);
+				System.out.printf("Lives: %d \n", GameMain.life);
 				frog1.setX(480);
 				frog1.setY(700);
 				frogLabel.setLocation(frog1.getX(), frog1.getY());
@@ -143,9 +142,8 @@ public class Car extends Sprite implements Runnable {
 				JOptionPane.showMessageDialog(null, "Game Over!");
 				//Add code in here to start new game 
 				//Below makes a new game screen but does close other one ******
-				
-				GameMain frogGame = new GameMain();
-				frogGame.setVisible(true);
+				//GameMain frogGame = new GameMain();
+				//frogGame.setVisible(true);
 				System.exit(0);
 			}
 

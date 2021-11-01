@@ -1,7 +1,7 @@
 
 public class Frog extends Sprite {
 	private Boolean moving, visible;
-	private int life = 3;
+
 	
 	public Boolean getMoving() {
 		return moving;
@@ -22,6 +22,5 @@ public class Frog extends Sprite {
 	
 	public Frog () {
 		super(46, 68, "frog.png");
-		life = 3;
 	}	
 }

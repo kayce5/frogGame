@@ -35,8 +35,8 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	//Lives 
 	public static int life = 3;
 	
-	
-	
+	//Score
+	public static int score = 0;
 	
 	//Gui Constructor 
 	public GameMain() {
@@ -167,8 +167,14 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		GameMain frogGame = new GameMain();
 		frogGame.setVisible(true);
 		
+	
+		
 	}
-
+	
+	public void score() {
+		score++;
+		System.out.printf("Score: %d \n", score);
+	}
 	
 	//Functions for ActionListener and KeyListener
 	//Start Button
@@ -181,9 +187,6 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		} 
 		
 	}
-
-
-
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -205,22 +208,25 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogUp.png")) );
 			//if(fy + frog1.getWidth() < 0) fy = GameProperties.SCREEN_HEIGHT; -- Need to stop frog from going off screen
 			frogLabel.setSize(46, 68);
+			score();
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN){
 			fy = fy + GameProperties.CHARACTER_STEP;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDown.png")) );
 			frogLabel.setSize(44, 65);
+			score();
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			fx = fx - GameProperties.CHARACTER_STEP;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogLeft.png")) );
 			frogLabel.setSize(65, 44);
-			
+			score();
 			
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			fx = fx + GameProperties.CHARACTER_STEP;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogRight.png")) );
 			frogLabel.setSize(65, 44);
+			score();
 		}
 		
 		
