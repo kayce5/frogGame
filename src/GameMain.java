@@ -232,6 +232,8 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		
 		frogLabel.setLocation(frog1.getX(), frog1.getY());
 		
+		
+		/*
 		//Stop Character from going off screen **Figure out down and right
 		if(fx > GameProperties.SCREEN_WIDTH) {
 			frog1.setX(GameProperties.SCREEN_WIDTH);
@@ -244,6 +246,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		} else if(fy < 0) {
 			frog1.setY(0);
 		}
+		*/
 		
 	}
 

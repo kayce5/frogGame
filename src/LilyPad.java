@@ -134,8 +134,7 @@ public class LilyPad extends Sprite implements Runnable {
 	private void detectLilyPadCollision() {
 		if(this.rectangle.intersects(frog1.getRectangle())) {
 			System.out.print("Colision LilyPad");
-			//To make frog move with lily pad? Check 
-			//while(moving) {
+			//To make frog move with lily pad
 			int fx = this.getX();
 			int fy = this.getY();
 			
@@ -143,7 +142,6 @@ public class LilyPad extends Sprite implements Runnable {
 			frog1.setY(fy);
 			
 			frogLabel.setLocation(fx, fy);
-			//}
 			
 			
 		}
