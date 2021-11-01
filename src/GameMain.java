@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private static final long serialVersionUID = -4418414814196675442L;
@@ -31,6 +32,10 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	//Start Button
 	private JButton startGameBtn;
 	
+	//Lives 
+	public static int life = 3;
+	
+	
 	
 	
 	//Gui Constructor 
@@ -41,6 +46,10 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		
 		//Do not allow screen to be resized
 		setResizable(false);
+		
+		//Make the screen open the center
+		setLocationRelativeTo(null);
+		
 		
 		
 		//Initialize Frog
@@ -105,13 +114,13 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		setLayout(null); //Allow to position characters on screen
 		
 		//Adding characters on screen
-		frog1.setX(400);
-		frog1.setY(715);
+		frog1.setX(480);
+		frog1.setY(700);
 		add(frogLabel);
 	
 		
 		lilyPad.setX(20);
-		lilyPad.setY(230);
+		lilyPad.setY(290);
 		add(lilyPadLabel);
 		lilyPadLabel.setVisible(lilyPad.getVisible());
 		
@@ -157,28 +166,18 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	public static void main(String[] args) {
 		GameMain frogGame = new GameMain();
 		frogGame.setVisible(true);
+		
 	}
 
-
-
+	
 	//Functions for ActionListener and KeyListener
 	//Start Button
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == startGameBtn) {
-			if(lilyPad.getMoving() && car.getMoving()) { //Tell whether or not its moving
-				lilyPad.setMoving(false);
-				car.setMoving(false);
-				
-				startGameBtn.setVisible(true); //Hide Button
-			} else { 
-				startGameBtn.setVisible(false); //Show Button
-				frog1.setX(400);
-				frog1.setY(715);
-				frogLabel.setLocation(frog1.getX(), frog1.getY());
-				lilyPad.moveLilyPad();
-				car.moveCar();
-			}
+			lilyPad.moveLilyPad();
+			car.moveCar();
+			startGameBtn.setVisible(false);
 		} 
 		
 	}
@@ -205,23 +204,23 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			fy = fy - GameProperties.CHARACTER_STEP; 
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogUp.png")) );
 			//if(fy + frog1.getWidth() < 0) fy = GameProperties.SCREEN_HEIGHT; -- Need to stop frog from going off screen
-			
+			frogLabel.setSize(46, 68);
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN){
 			fy = fy + GameProperties.CHARACTER_STEP;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDown.png")) );
-			
+			frogLabel.setSize(44, 65);
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			fx = fx - GameProperties.CHARACTER_STEP;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogLeft.png")) );
-			
+			frogLabel.setSize(65, 44);
 			
 			
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			fx = fx + GameProperties.CHARACTER_STEP;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogRight.png")) );
-			
+			frogLabel.setSize(65, 44);
 		}
 		
 		
@@ -233,20 +232,6 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		frogLabel.setLocation(frog1.getX(), frog1.getY());
 		
 		
-		/*
-		//Stop Character from going off screen **Figure out down and right
-		if(fx > GameProperties.SCREEN_WIDTH) {
-			frog1.setX(GameProperties.SCREEN_WIDTH);
-		} else if(fx < 0) {
-			frog1.setX(0);
-		}
-		
-		if(fy > GameProperties.SCREEN_HEIGHT) {
-			frog1.setY(GameProperties.SCREEN_HEIGHT);
-		} else if(fy < 0) {
-			frog1.setY(0);
-		}
-		*/
 		
 	}
 

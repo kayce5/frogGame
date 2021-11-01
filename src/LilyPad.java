@@ -119,7 +119,7 @@ public class LilyPad extends Sprite implements Runnable {
 			
 			//Detect Colision
 			this.detectLilyPadCollision();
-			System.out.println("LP Mobe");
+			//System.out.println("LP Mobe");
 			
 			//Pause it 
 			try {
@@ -142,6 +142,7 @@ public class LilyPad extends Sprite implements Runnable {
 			frog1.setY(fy);
 			
 			frogLabel.setLocation(fx, fy);
+			
 			
 			
 		}

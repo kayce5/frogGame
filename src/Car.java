@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class Car extends Sprite implements Runnable {
 	
@@ -9,8 +12,8 @@ public class Car extends Sprite implements Runnable {
 	private JLabel carLabel, frogLabel;
 	private JButton startGameBtn;
 	private Frog frog1;
-
 	
+	//ArrayList<Car> cars = new ArrayList<Car>();
 
 	//Getters and Setters
 	public Boolean getVisible() {
@@ -80,6 +83,7 @@ public class Car extends Sprite implements Runnable {
 
 	@Override
 	public void run() {
+		System.out.printf("Lives: %d", GameMain.life);
 		this.moving = true; 
 		
 		frogLabel.setIcon(new ImageIcon(getClass().getResource("frog.png")) );
@@ -117,18 +121,37 @@ public class Car extends Sprite implements Runnable {
 				
 			}
 		}
+		
+		
 	}
 	
 	private void detectCarCollision() {
 		if(this.rectangle.intersects(frog1.getRectangle())) {
-			System.out.print("Colision Car");
+			System.out.print("\n Colision Car \n");
 			this.moving = (false);
-			
-			//lilyPad.setMoving(false);
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDead.png")) );
-			startGameBtn.setText("Play Again");
-			startGameBtn.setVisible(true);
+			//Need to set up so that it gives 3 lives and then is a play again button
+			GameMain.life = GameMain.life - 1;
+			if(GameMain.life != 0) {
+				JOptionPane.showMessageDialog(null, "Uh-Oh");
+				System.out.printf("Lives: %d", GameMain.life);
+				frog1.setX(480);
+				frog1.setY(700);
+				frogLabel.setLocation(frog1.getX(), frog1.getY());
+				frogLabel.setIcon(new ImageIcon(getClass().getResource("frog.png")) );
+			} else {
+				JOptionPane.showMessageDialog(null, "Game Over!");
+				//Add code in here to start new game 
+				//Below makes a new game screen but does close other one ******
+				
+				GameMain frogGame = new GameMain();
+				frogGame.setVisible(true);
+				System.exit(0);
+			}
+
 		}
+		
+		this.moving = (true);
 	}
 	
 	
