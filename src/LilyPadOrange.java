@@ -92,7 +92,7 @@ public class LilyPadOrange extends Sprite implements Runnable {
 		int fx = frog1.getX();	
 		int fy = frog1.getY();
 		
-		Display();
+		//Display();
 		
 		//Get current x/y
 		int lx = this.x;

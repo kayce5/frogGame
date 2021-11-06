@@ -35,7 +35,7 @@ public class LilyPad extends Sprite implements Runnable {
 		this.startGameBtn = temp;
 	}
 	
-	//Getter
+	//Getter Frog
 	public JLabel getFrogLabel() {
 		return frogLabel;
 	}
@@ -80,13 +80,13 @@ public class LilyPad extends Sprite implements Runnable {
 		System.out.println("x,y: / vis" + this.x + "," + this.y + " / " + this.visible);
 	}
 	
+	//Move LilyPad Thread
 	public void moveLilyPad() {
 		lilyT = new Thread(this, "LilyPad Thread");
 				lilyT.start();  //Get the run below, running
 	}
 	
-	//Frog x
-
+	//Run Routine
 	@Override
 	public void run() {
 		this.moving = true; 
@@ -94,16 +94,13 @@ public class LilyPad extends Sprite implements Runnable {
 		int fx = frog1.getX();	
 		int fy = frog1.getY();
 		
-		Display();
+		//Display();
 		
 		//Get current x/y
 		int lx = this.x;
 		int ly = this.y;
 		
 		while(moving) { //Code here will remain moving until moving false - infinate loop
-			//Move Routine
-			
-			
 			//Move left to right 
 			lx = lx + GameProperties.CHARACTER_STEP;
 			

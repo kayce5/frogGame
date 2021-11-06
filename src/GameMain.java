@@ -95,9 +95,10 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		truckImage = new ImageIcon(getClass().getResource(truck.getFilename()));
 		truckLabel.setIcon(truckImage);
 		truckLabel.setSize(truck.getWidth(), truck.getHeight());
-		truck.setCarLabel(truckLabel);
+		truck.setTruckLabel(truckLabel);
 		truck.setFrog(frog1);
 		truck.setFrogLabel(frogLabel);
+		truck.setCar(car);
 	
 		//Initialize Water
 		waterLabel = new JLabel();
@@ -193,10 +194,10 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	public static void main(String[] args) {
 		GameMain frogGame = new GameMain();
 		frogGame.setVisible(true);
-		
 	
 		
-	}
+	} //End of Main
+	
 	
 	public void score() {
 		score++;

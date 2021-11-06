@@ -1,5 +1,6 @@
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -10,8 +11,9 @@ public class Truck extends Sprite implements Runnable {
 	private JLabel truckLabel, frogLabel;
 	private JButton startGameBtn;
 	private Frog frog1;
+	private Car car;
 	
-	
+
 	//Getters and Setters
 	public Boolean getVisible() {
 		return visible;
@@ -45,11 +47,27 @@ public class Truck extends Sprite implements Runnable {
 		this.frogLabel = temp;
 	}
 
+	public Car getCar() {
+		return car;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
+	
 	//Setter for Car Label
 	public void setCarLabel(JLabel temp) {
 		this.truckLabel = temp;
 	}
 	
+	//Truck Label
+	public JLabel getTruckLabel() {
+		return truckLabel;
+	}
+
+	public void setTruckLabel(JLabel truckLabel) {
+		this.truckLabel = truckLabel;
+	}
 
 	//Default Constructor
 	public Truck() {
@@ -71,13 +89,14 @@ public class Truck extends Sprite implements Runnable {
 		System.out.println("x,y: / vis" + this.x + "," + this.y + " / " + this.visible);
 	}
 	
+	//Move Truck Thread
 	public void moveTruck() {
 		truckT = new Thread(this, "Truck Thread");
 			truckT.start();  //Get the run below, running
 	}
 	
 	
-
+	//Run Routine
 	@Override
 	public void run() {
 		System.out.printf("Lives: %d \n", GameMain.life);
@@ -125,6 +144,7 @@ public class Truck extends Sprite implements Runnable {
 			System.out.print("\n Colision Truck \n");
 			this.moving = (false);
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDead.png")) );
+			//car.setMoving(false); **Cannot get to restart with car.setMoving(true);
 			//Need to set up so that it gives 3 lives and then is a play again button
 			GameMain.life = GameMain.life - 1;
 			if(GameMain.life != 0) {
@@ -134,17 +154,17 @@ public class Truck extends Sprite implements Runnable {
 				frog1.setY(700);
 				frogLabel.setLocation(frog1.getX(), frog1.getY());
 				frogLabel.setIcon(new ImageIcon(getClass().getResource("frog.png")) );
+				car.setMoving(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "Game Over!");
 				//Add code in here to start new game 
 				//Below makes a new game screen but does close other one ******
 				//GameMain frogGame = new GameMain();
 				//frogGame.setVisible(true);
-				System.exit(0);
+				//System.exit(0);
 			}
-
+			
 		}
-		
 		this.moving = (true);
 	}
 	

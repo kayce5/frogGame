@@ -11,9 +11,7 @@ public class Car extends Sprite implements Runnable {
 	private JLabel carLabel, frogLabel;
 	private JButton startGameBtn;
 	private Frog frog1;
-	
 
-	
 	
 	//Getters and Setters
 	public Boolean getVisible() {
@@ -42,7 +40,6 @@ public class Car extends Sprite implements Runnable {
 		this.frog1 = temp;
 	}
 	
-	
 	//Setter for Frog Label
 	public void setFrogLabel(JLabel temp) {
 		this.frogLabel = temp;
@@ -53,7 +50,6 @@ public class Car extends Sprite implements Runnable {
 		this.carLabel = temp;
 	}
 	
-
 	//Default Constructor
 	public Car() {
 		super(80, 40, "car.png");
@@ -74,16 +70,16 @@ public class Car extends Sprite implements Runnable {
 		System.out.println("x,y: / vis" + this.x + "," + this.y + " / " + this.visible);
 	}
 	
+	//Thread
 	public void moveCar() {
 		carT = new Thread(this, "Car Thread");
 			carT.start();  //Get the run below, running
 	}
 	
-	
 
 	@Override
 	public void run() {
-		System.out.printf("Lives: %d", GameMain.life);
+		//System.out.printf("Lives: %d \n", GameMain.life);
 		this.moving = true; 
 		
 		frogLabel.setIcon(new ImageIcon(getClass().getResource("frog.png")) );
@@ -142,15 +138,13 @@ public class Car extends Sprite implements Runnable {
 				JOptionPane.showMessageDialog(null, "Game Over!");
 				//Add code in here to start new game 
 				//Below makes a new game screen but does close other one ******
-				//GameMain frogGame = new GameMain();
-				//frogGame.setVisible(true);
 				System.exit(0);
 			}
-
+			GameMain frogGame = new GameMain();
+			frogGame.setVisible(true);
 		}
-		
 		this.moving = (true);
+		
 	}
-	
-	
+
 }
