@@ -17,16 +17,17 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	//Storage Classes
 	private Frog frog1;
 	private LilyPad lilyPad;
+	private LilyPadOrange lilyPadOrange;
 	private Car car;
 	private Truck truck;
 	private Water water;
 	private Road road;
 	
 	//Graphic Labels
-	private JLabel frogLabel, lilyPadLabel, waterLabel, roadLabel;
+	private JLabel frogLabel, lilyPadLabel, lilyPadOrangeLabel ,waterLabel, roadLabel;
 	private JLabel carLabel, truckLabel; //?? private JLabel[] carLabel;
 	
-	private ImageIcon frogImage, lilyPadImage, carImage, waterImage, roadImage, truckImage;
+	private ImageIcon frogImage, lilyPadImage, lilyPadOrangeImage, carImage, waterImage, roadImage, truckImage;
 	//Container for graphics - **set background , color etc**
 	private Container content; 
 	
@@ -51,16 +52,12 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		//Make the screen open the center
 		setLocationRelativeTo(null);
 		
-		
-		
 		//Initialize Frog
 		frogLabel = new JLabel();
 		frog1 = new Frog();
 		frogImage = new ImageIcon(getClass().getResource(frog1.getFilename()));
 		frogLabel.setIcon(frogImage);
 		frogLabel.setSize(frog1.getWidth(), frog1.getHeight());
-		
-		
 		
 		//Initialize LilyPad
 		lilyPad = new LilyPad();
@@ -72,6 +69,15 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		lilyPad.setFrog(frog1);
 		lilyPad.setFrogLabel(frogLabel);
 		
+		//Initialize LilyPadOrange
+		lilyPadOrange = new LilyPadOrange();
+		lilyPadOrangeLabel = new JLabel();
+		lilyPadOrangeImage = new ImageIcon(getClass().getResource(lilyPadOrange.getFilename()));
+		lilyPadOrangeLabel.setIcon(lilyPadOrangeImage);
+		lilyPadOrangeLabel.setSize(lilyPadOrange.getWidth(), lilyPadOrange.getHeight());
+		lilyPadOrange.setLilyPadLabel(lilyPadOrangeLabel);
+		lilyPadOrange.setFrog(frog1);
+		lilyPadOrange.setFrogLabel(frogLabel);
 		
 		//Initialize Car
 		car = new Car();
@@ -135,6 +141,12 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		add(lilyPadLabel);
 		lilyPadLabel.setVisible(lilyPad.getVisible());
 		
+		//Add LilyPadOrange
+		lilyPadOrange.setX(750);
+		lilyPadOrange.setY(210);
+		add(lilyPadOrangeLabel);
+		lilyPadOrangeLabel.setVisible(lilyPadOrange.getVisible());
+		
 		//Add Car
 		car.setX(850);
 		car.setY(650);
@@ -157,15 +169,13 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		roadLabel.setLocation(0, 170);
 		add(roadLabel);
 
-		
-		
-		
+
 		//Update Label Positions - match stored values
 		frogLabel.setLocation(frog1.getX(), frog1.getY());
 		lilyPadLabel.setLocation(lilyPad.getX(), lilyPad.getY());
+		lilyPadOrangeLabel.setLocation(lilyPadOrange.getX(), lilyPadOrange.getY());
 		carLabel.setLocation(car.getX(), car.getY());
 		truckLabel.setLocation(truck.getX(), truck.getY());
-		
 		
 		
 		//Container - Need Down here
@@ -199,6 +209,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == startGameBtn) {
 			lilyPad.moveLilyPad();
+			lilyPadOrange.moveLilyPadOrange();
 			car.moveCar();
 			truck.moveTruck();
 			startGameBtn.setVisible(false);
@@ -247,7 +258,6 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		//Update
 		frog1.setX(fx);
 		frog1.setY(fy);
-		
 		frogLabel.setLocation(frog1.getX(), frog1.getY());
 		
 		
@@ -270,7 +280,6 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		
 	}
 
-	
 	
 	
 }

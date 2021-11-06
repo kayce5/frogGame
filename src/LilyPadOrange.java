@@ -2,17 +2,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-public class LilyPad extends Sprite implements Runnable {
+public class LilyPadOrange extends Sprite implements Runnable {
 	
 	private Boolean moving, visible;
-	private Thread lilyT;
-	private JLabel lilyPadLabel, frogLabel;
+	private Thread lilyOrangeT;
+	private JLabel lilyPadOrangeLabel, frogLabel;
 	private JButton startGameBtn;
 	private Frog frog1;
 	
-	
-	
-	
+
 	//Getters and Setters
 	public Boolean getVisible() {
 		return visible;
@@ -57,22 +55,22 @@ public class LilyPad extends Sprite implements Runnable {
 	
 	//Setter for LilyPad Label
 	public void setLilyPadLabel(JLabel temp) {
-		this.lilyPadLabel = temp;
+		this.lilyPadOrangeLabel = temp;
 	}
 
 	//Default Constructor
-	public LilyPad() {
-		super(250, 85, "lilypad1.png");
+	public LilyPadOrange() {
+		super(250, 85, "lilypadOrange.png");
 		this.visible = (true);
 		this.moving = false;
 	} 
 	
 	//Constructor to use LilyPad Label
-	public LilyPad(JLabel temp) {
-		super(250, 85, "lilypad1.png");
+	public LilyPadOrange(JLabel temp) {
+		super(250, 85, "lilypadOrange.png");
 		this.visible = (true);
 		this.moving = false;
-		this.lilyPadLabel = temp;
+		this.lilyPadOrangeLabel = temp;
 	} 
 	
 	//Displaying the x and y
@@ -80,9 +78,9 @@ public class LilyPad extends Sprite implements Runnable {
 		System.out.println("x,y: / vis" + this.x + "," + this.y + " / " + this.visible);
 	}
 	
-	public void moveLilyPad() {
-		lilyT = new Thread(this, "LilyPad Thread");
-				lilyT.start();  //Get the run below, running
+	public void moveLilyPadOrange() {
+		lilyOrangeT = new Thread(this, "LilyPadOrange Thread");
+				lilyOrangeT.start();  //Get the run below, running
 	}
 	
 	//Frog x
@@ -105,11 +103,11 @@ public class LilyPad extends Sprite implements Runnable {
 			
 			
 			//Move left to right 
-			lx = lx + GameProperties.CHARACTER_STEP;
+			lx = lx - GameProperties.CHARACTER_STEP;
 			
 			//If graphic has went off screen
-			if(lx > GameProperties.SCREEN_WIDTH) {
-				lx = -1 * this.width;
+			if(lx + lilyPadOrangeLabel.getWidth() < 0) {
+				lx = GameProperties.SCREEN_WIDTH;
 			}
 			
 			//Update the x/y
@@ -117,10 +115,10 @@ public class LilyPad extends Sprite implements Runnable {
 			this.setY(ly);
 			
 			//Update LilyPad Label
-			lilyPadLabel.setLocation(this.x, this.y);
+			lilyPadOrangeLabel.setLocation(this.x, this.y);
 			
 			//Detect Colision
-			this.detectLilyPadCollision();
+			this.detectLilyPadOrangeCollision();
 			//System.out.println("LP Mobe");
 			
 			//Pause it 
@@ -133,7 +131,7 @@ public class LilyPad extends Sprite implements Runnable {
 		
 	}
 	
-	private void detectLilyPadCollision() {
+	private void detectLilyPadOrangeCollision() {
 		if(this.rectangle.intersects(frog1.getRectangle())) {
 			//System.out.print("Colision LilyPad");
 			//To make frog move with lily pad

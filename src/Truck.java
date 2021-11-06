@@ -80,7 +80,7 @@ public class Truck extends Sprite implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.printf("Lives: %d", GameMain.life);
+		System.out.printf("Lives: %d \n", GameMain.life);
 		this.moving = true; 
 		
 		frogLabel.setIcon(new ImageIcon(getClass().getResource("frog.png")) );
@@ -108,7 +108,6 @@ public class Truck extends Sprite implements Runnable {
 			
 			//Detect Colision
 			this.detectTruckCollision();
-			
 			
 			//Pause it 
 			try {
