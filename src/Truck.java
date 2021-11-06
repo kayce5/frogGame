@@ -1,18 +1,15 @@
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class Car extends Sprite implements Runnable {
+public class Truck extends Sprite implements Runnable {
 	
 	private Boolean moving, visible;
-	private Thread carT;
-	private JLabel carLabel, frogLabel;
+	private Thread truckT;
+	private JLabel truckLabel, frogLabel;
 	private JButton startGameBtn;
 	private Frog frog1;
-	
-
 	
 	
 	//Getters and Setters
@@ -50,23 +47,23 @@ public class Car extends Sprite implements Runnable {
 
 	//Setter for Car Label
 	public void setCarLabel(JLabel temp) {
-		this.carLabel = temp;
+		this.truckLabel = temp;
 	}
 	
 
 	//Default Constructor
-	public Car() {
-		super(80, 40, "car.png");
+	public Truck() {
+		super(80, 40, "truck.png");
 		this.visible = (true);
 		this.moving = false;
 	} 
 	
 	//Constructor to use Car Label
-	public Car(JLabel temp) {
-		super(124, 200, "car.png");
+	public Truck(JLabel temp) {
+		super(124, 200, "truck.png");
 		this.visible = (true);
 		this.moving = false;
-		this.carLabel = temp;
+		this.truckLabel = temp;
 	} 
 	
 	//Displaying the x and y
@@ -74,9 +71,9 @@ public class Car extends Sprite implements Runnable {
 		System.out.println("x,y: / vis" + this.x + "," + this.y + " / " + this.visible);
 	}
 	
-	public void moveCar() {
-		carT = new Thread(this, "Car Thread");
-			carT.start();  //Get the run below, running
+	public void moveTruck() {
+		truckT = new Thread(this, "Truck Thread");
+			truckT.start();  //Get the run below, running
 	}
 	
 	
@@ -91,26 +88,26 @@ public class Car extends Sprite implements Runnable {
 		while(moving) { //Code here will remain moving until moving false - infinate loop
 			//Move Routine
 			//Get current x/y
-			int cx = this.x;
-			int cy = this.y;
+			int tx = this.x;
+			int ty = this.y;
 			
 			//Move right to left 
-			cx = cx - GameProperties.CHARACTER_STEP;
+			tx = tx + GameProperties.CHARACTER_STEP;
 			
 			//If graphic has went off screen
-			if(cx + carLabel.getWidth() < 0) {
-				cx = GameProperties.SCREEN_WIDTH;
+			if (tx > GameProperties.SCREEN_WIDTH) {
+				tx = -1 * this.width;
 			}
 			
 			//Update the x/y
-			this.setX(cx);
-			this.setY(cy);
+			this.setX(tx);
+			this.setY(ty);
 			
 			//Update Car Label
-			carLabel.setLocation(this.x, this.y);
+			truckLabel.setLocation(this.x, this.y);
 			
 			//Detect Colision
-			this.detectCarCollision();
+			this.detectTruckCollision();
 			
 			
 			//Pause it 
@@ -124,9 +121,9 @@ public class Car extends Sprite implements Runnable {
 		
 	}
 	
-	private void detectCarCollision() {
+	private void detectTruckCollision() {
 		if(this.rectangle.intersects(frog1.getRectangle())) {
-			System.out.print("\n Colision Car \n");
+			System.out.print("\n Colision Truck \n");
 			this.moving = (false);
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDead.png")) );
 			//Need to set up so that it gives 3 lives and then is a play again button

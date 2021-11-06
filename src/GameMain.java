@@ -18,14 +18,15 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private Frog frog1;
 	private LilyPad lilyPad;
 	private Car car;
+	private Truck truck;
 	private Water water;
 	private Road road;
 	
 	//Graphic Labels
 	private JLabel frogLabel, lilyPadLabel, waterLabel, roadLabel;
-	private JLabel carLabel; //?? private JLabel[] carLabel;
+	private JLabel carLabel, truckLabel; //?? private JLabel[] carLabel;
 	
-	private ImageIcon frogImage, lilyPadImage, carImage, waterImage, roadImage;
+	private ImageIcon frogImage, lilyPadImage, carImage, waterImage, roadImage, truckImage;
 	//Container for graphics - **set background , color etc**
 	private Container content; 
 	
@@ -81,6 +82,16 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		car.setCarLabel(carLabel);
 		car.setFrog(frog1);
 		car.setFrogLabel(frogLabel);
+		
+		//Initialize Truck
+		truck = new Truck();
+		truckLabel = new JLabel();
+		truckImage = new ImageIcon(getClass().getResource(truck.getFilename()));
+		truckLabel.setIcon(truckImage);
+		truckLabel.setSize(truck.getWidth(), truck.getHeight());
+		truck.setCarLabel(truckLabel);
+		truck.setFrog(frog1);
+		truck.setFrogLabel(frogLabel);
 	
 		//Initialize Water
 		waterLabel = new JLabel();
@@ -118,20 +129,27 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		frog1.setY(700);
 		add(frogLabel);
 	
-		
+		//Add LilyPad
 		lilyPad.setX(20);
 		lilyPad.setY(290);
 		add(lilyPadLabel);
 		lilyPadLabel.setVisible(lilyPad.getVisible());
 		
-		//???
+		//Add Car
 		car.setX(850);
 		car.setY(650);
-		
 		add(carLabel);
 		carLabel.setVisible(car.getVisible());
 		
+		//Add Truck
+		truck.setX(0);
+		truck.setY(600);
+		add(truckLabel);
+		truckLabel.setVisible(truck.getVisible());
+		
 		//Add Water 
+		water.setX(100);
+		water.setY(100);
 		waterLabel.setLocation(0, -180);
 		add(waterLabel);
 		
@@ -145,9 +163,8 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		//Update Label Positions - match stored values
 		frogLabel.setLocation(frog1.getX(), frog1.getY());
 		lilyPadLabel.setLocation(lilyPad.getX(), lilyPad.getY());
-		
 		carLabel.setLocation(car.getX(), car.getY());
-		
+		truckLabel.setLocation(truck.getX(), truck.getY());
 		
 		
 		
@@ -183,6 +200,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		if(e.getSource() == startGameBtn) {
 			lilyPad.moveLilyPad();
 			car.moveCar();
+			truck.moveTruck();
 			startGameBtn.setVisible(false);
 		} 
 		
@@ -193,10 +211,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
-
-
-
-
+	
 	@Override //Frog Movement
 	public void keyPressed(KeyEvent e) {
 		int fx = frog1.getX();
@@ -208,28 +223,26 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogUp.png")) );
 			//if(fy + frog1.getWidth() < 0) fy = GameProperties.SCREEN_HEIGHT; -- Need to stop frog from going off screen
 			frogLabel.setSize(46, 68);
-			score();
+			//score();
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN){
 			fy = fy + GameProperties.CHARACTER_STEP;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDown.png")) );
 			frogLabel.setSize(44, 65);
-			score();
+			//score();
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			fx = fx - GameProperties.CHARACTER_STEP;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogLeft.png")) );
 			frogLabel.setSize(65, 44);
-			score();
+			//score();
 			
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			fx = fx + GameProperties.CHARACTER_STEP;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogRight.png")) );
 			frogLabel.setSize(65, 44);
-			score();
+			//score();
 		}
-		
-		
 		
 		//Update
 		frog1.setX(fx);
@@ -238,11 +251,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		frogLabel.setLocation(frog1.getX(), frog1.getY());
 		
 		
-		
 	}
-
-
-
 
 	@Override
 	public void keyReleased(KeyEvent e) {
