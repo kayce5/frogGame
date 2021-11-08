@@ -1,6 +1,7 @@
-import javax.swing.ImageIcon;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class LilyPad extends Sprite implements Runnable {
 	
@@ -62,14 +63,14 @@ public class LilyPad extends Sprite implements Runnable {
 
 	//Default Constructor
 	public LilyPad() {
-		super(250, 85, "lilypad1.png");
+		super(220, 80, "lilypad1.png");
 		this.visible = (true);
 		this.moving = false;
 	} 
 	
 	//Constructor to use LilyPad Label
 	public LilyPad(JLabel temp) {
-		super(250, 85, "lilypad1.png");
+		super(220, 80, "lilypad1.png");
 		this.visible = (true);
 		this.moving = false;
 		this.lilyPadLabel = temp;
@@ -131,11 +132,30 @@ public class LilyPad extends Sprite implements Runnable {
 	}
 	
 	private void detectLilyPadCollision() {
-		if(this.rectangle.intersects(frog1.getRectangle())) {
-			//System.out.print("Colision LilyPad");
+		int fx = frog1.getX();
+		int fy = frog1.getY();
+		
+		boolean onLilyPad = false;
+		
+		//Figure out if frog is on LilyPad 
+		if (this.rectangle.intersects(frog1.getRectangle())) {
+			onLilyPad = true;
+		}
+		
+		//If frog is between water y and isnt on lilypad - lose life
+		if(fy <= 335 && fy >= 40 && onLilyPad == false) {
+			System.out.println("In water");
+			JOptionPane.showMessageDialog(null, "Uh-Oh");
+			frog1.setX(480);
+			frog1.setY(700);
+			frogLabel.setLocation(frog1.getX(), frog1.getY());
+			
+		} else if (this.rectangle.intersects(frog1.getRectangle())) {
+			System.out.print("Colision LilyPad");
 			//To make frog move with lily pad
-			int fx = this.getX();
-			int fy = this.getY();
+			
+			fx = this.getX();
+			fy = this.getY();
 			
 			frog1.setX(fx);
 			frog1.setY(fy);

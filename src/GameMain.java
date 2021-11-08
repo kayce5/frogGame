@@ -29,12 +29,12 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private Road road;	
 	
 	//Graphic Labels
-	private JLabel frogLabel, lilyPadLabel, lilyPadOrangeLabel ,waterLabel, roadLabel;
+	private JLabel frogLabel, lilyPadLabel, lilyPadOrangeLabel ,waterLabel, roadLabel, lifeLabel;
 	private JLabel carsLabel[];
 	private JLabel trucksLabel[];
 	
 	
-	private ImageIcon frogImage, lilyPadImage, lilyPadOrangeImage, waterImage, roadImage;
+	private ImageIcon frogImage, lilyPadImage, lilyPadOrangeImage, waterImage, roadImage, lifeImage;
 	private ImageIcon carsImage[];
 	private ImageIcon trucksImage[];
 	
@@ -94,7 +94,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		//Array Car 
 		cars = new Car[4];
 		cars[0] = new Car();
-		cars[0].setX(400);
+		cars[0].setX(480);
 		cars[0].setY(650);
 		cars[0].setFilename("car.png");
 		
@@ -183,46 +183,46 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		trucks = new Truck[3];
 		trucks[0] = new Truck();
 		trucks[0].setX(150);
-		trucks[0].setY(600);
+		trucks[0].setY(590);
 		trucks[0].setFilename("truck.png");
 		
 		trucks[1] = new Truck();
 		trucks[1].setX(500);
-		trucks[1].setY(600);
+		trucks[1].setY(590);
 		trucks[1].setFilename("truck.png");
 		
 		trucks[2] = new Truck();
 		trucks[2].setX(800);
-		trucks[2].setY(600);
+		trucks[2].setY(590);
 		trucks[2].setFilename("truck.png");
 		
 		
-		//For loop to add labels 
+		//For loop for Array Truck Labels
 		trucksLabel = new JLabel[3];
 		for(int i = 0; i < 3; i++) {
 			trucksLabel[i] = new JLabel();
 		}
 		
-		//For Loop for Array Car Labels
+		//For Loop for Array Truck Images
 		trucksImage = new ImageIcon[3];
 		for(int i=0; i < 3; i++) {
 			trucksImage[i] = new ImageIcon(getClass().getResource(trucks[i].getFilename()));
 		}
 		
 	
-		//For Loop for Array Car Labels Set Icon
+		//For Loop for Array Truck Labels Set Icon
 		for(int i = 0; i < 3; i++) {
 			trucksLabel[i].setIcon(trucksImage[i]);
 		}
 		
 		
-		//For Loop for Array Car Labels Set Size
+		//For Loop for Array Truck Labels Set Size
 		for(int i = 0; i < 3; i++) {
 			trucksLabel[i].setSize(trucks[i].getWidth(), trucks[i].getHeight());
 		}
 		
 
-		//For Loop for Array Set Car Labels 
+		//For Loop for Array Set Truck Labels 
 		for(int i = 0; i < 3; i++) {
 			trucks[i].setCarLabel(trucksLabel[i]);
 		}
@@ -239,7 +239,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		}
 		
 
-		//For Loop set car
+		//For Loop set Truck
 		for(int i = 0; i < 3; i++) {
 			trucks[i].setCar(cars[i]);
 		}
@@ -261,7 +261,6 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		//*End of Initialize Truck*
 		
 		
-		
 		//Initialize Water
 		waterLabel = new JLabel();
 		water = new Water();
@@ -276,6 +275,14 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		roadLabel.setIcon(roadImage);
 		roadLabel.setSize(1000, 800);
 		
+		//Frog Life 
+		lifeLabel = new JLabel();
+		lifeImage = new ImageIcon(getClass().getResource("frogLife.png"));
+		lifeLabel.setIcon(lifeImage);
+		lifeLabel.setSize(50 ,50);
+		add(lifeLabel);
+		lifeLabel.setLocation(0, 60);
+		
 		//Start Button Initial 
 		startGameBtn = new JButton(" Start ");
 		startGameBtn.setSize(120, 40);
@@ -285,8 +292,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		startGameBtn.addActionListener(this); //Add action listener to the button so it will respond
 		lilyPad.setStartGameBtn(startGameBtn);
 		
-		
-		
+	
 		
 		//Main content container
 		content = getContentPane();
@@ -348,7 +354,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		
 		//Check for water col?**
 		frogGame.waterCol();
-		
+	
 		
 		//Database*** Fix
 		/*
@@ -399,13 +405,16 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	
 	
 	
+	
 	//Check for water col?**
 	private void waterCol() {
-		/*
+		
 		int fx = frog1.getX();
 		int wx = water.getX();
 		
-		if(fx == wx){
+		//if the frogs x and y not the water than collision
+		/*
+		if(){
 			System.out.println("WATERCOL");
 		}
 		*/
@@ -418,8 +427,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	}
 	
 	
-	
-	
+
 	//Functions for ActionListener and KeyListener
 	//Start Button
 	@Override

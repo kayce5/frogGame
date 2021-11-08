@@ -139,8 +139,11 @@ public class Truck extends Sprite implements Runnable {
 	}
 	
 	private void detectTruckCollision() {
-		if(this.rectangle.intersects(frog1.getRectangle())) {
+		int fx = frog1.getX();
+		int fy = frog1.getY();
+		if(fy <= 660 && fy >= 430 && this.rectangle.intersects(frog1.getRectangle())) {
 			System.out.print("\n Colision Truck \n");
+			System.out.println("Your on the road");
 			this.moving = (false);
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDead.png")) );
 			//car.setMoving(false);//**Cannot get to restart with car.setMoving(true);

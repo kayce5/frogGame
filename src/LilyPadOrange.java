@@ -60,14 +60,14 @@ public class LilyPadOrange extends Sprite implements Runnable {
 
 	//Default Constructor
 	public LilyPadOrange() {
-		super(250, 85, "lilypadOrange.png");
+		super(220, 75, "lilypadOrange.png");
 		this.visible = (true);
 		this.moving = false;
 	} 
 	
 	//Constructor to use LilyPad Label
 	public LilyPadOrange(JLabel temp) {
-		super(250, 85, "lilypadOrange.png");
+		super(220, 75, "lilypadOrange.png");
 		this.visible = (true);
 		this.moving = false;
 		this.lilyPadOrangeLabel = temp;

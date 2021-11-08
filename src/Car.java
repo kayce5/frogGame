@@ -122,10 +122,20 @@ public class Car extends Sprite implements Runnable {
 	}
 	
 	private void detectCarCollision() {
-		if(this.rectangle.intersects(frog1.getRectangle())) {
+		int fx = frog1.getX();
+		int fy = frog1.getY();
+		
+		//Check to see if frog is on the road
+		/*
+		if(fy <= 660 && fy >= 430) {
+			System.out.println("Your on the road");
+			JOptionPane.showMessageDialog(null, "Uh-Oh");
+		} */
+		
+		if(fy <= 660 && fy >= 430 && this.rectangle.intersects(frog1.getRectangle())) {
+			System.out.println("Your on the road");
 			System.out.print("\n Colision Car \n");
 			this.moving = (false);
-			
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDead.png")) );
 			//Need to set up so that it gives 3 lives and then is a play again button
 			GameMain.life = GameMain.life - 1;
@@ -144,7 +154,7 @@ public class Car extends Sprite implements Runnable {
 				System.exit(0);
 			}
 			
-		}
+		}//End of is statement
 		this.moving = (true);
 		
 	}
