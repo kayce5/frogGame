@@ -23,19 +23,20 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private Frog frog1;
 	private LilyPad lilyPad;
 	private LilyPadOrange lilyPadOrange;
-	private Car car;
-	private Car cars[]; //**** Array Car Check
-	private Truck truck;
+	private Car cars[]; 
+	private Truck trucks[];
 	private Water water;
 	private Road road;	
 	
 	//Graphic Labels
 	private JLabel frogLabel, lilyPadLabel, lilyPadOrangeLabel ,waterLabel, roadLabel;
-	private JLabel carLabel, truckLabel;
 	private JLabel carsLabel[];
+	private JLabel trucksLabel[];
 	
-	private ImageIcon frogImage, lilyPadImage, lilyPadOrangeImage, carImage, waterImage, roadImage, truckImage;
+	
+	private ImageIcon frogImage, lilyPadImage, lilyPadOrangeImage, waterImage, roadImage;
 	private ImageIcon carsImage[];
+	private ImageIcon trucksImage[];
 	
 	
 	//Container for graphics - **set background , color etc**
@@ -89,9 +90,9 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		lilyPadOrange.setFrog(frog1);
 		lilyPadOrange.setFrogLabel(frogLabel);
 		
-		//Initialize Car
+		//**Initialize Car**
 		//Array Car 
-		cars = new Car[3];
+		cars = new Car[4];
 		cars[0] = new Car();
 		cars[0].setX(400);
 		cars[0].setY(650);
@@ -107,60 +108,159 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		cars[2].setY(650);
 		cars[2].setFilename("car.png");
 		
+		cars[3] = new Car();
+		cars[3].setX(200);
+		cars[3].setY(650);
+		cars[3].setFilename("car.png");
+		
 		
 		//For loop to add labels 
-		carsLabel = new JLabel[3];
-		for(int i = 0; i < 3; i++) {
+		carsLabel = new JLabel[4];
+		for(int i = 0; i < 4; i++) {
 			carsLabel[i] = new JLabel();
 		}
 		
 		//For Loop for Array Car Labels
-		carsImage = new ImageIcon[3];
-		for(int i=0; i < 3; i++) {
+		carsImage = new ImageIcon[4];
+		for(int i=0; i < 4; i++) {
 			carsImage[i] = new ImageIcon(getClass().getResource(cars[i].getFilename()));
 		}
 		
 	
 		//For Loop for Array Car Labels Set Icon
-		for(int i = 0; i < 3; i++) {
+		for(int i = 0; i < 4; i++) {
 			carsLabel[i].setIcon(carsImage[i]);
 		}
 		
 		
 		//For Loop for Array Car Labels Set Size
-		for(int i = 0; i < 3; i++) {
+		for(int i = 0; i < 4; i++) {
 			carsLabel[i].setSize(cars[i].getWidth(), cars[i].getHeight());
 		}
 		
 
 		//For Loop for Array Set Car Labels 
-		for(int i = 0; i < 3; i++) {
+		for(int i = 0; i < 4; i++) {
 			cars[i].setCarLabel(carsLabel[i]);
 		}
 		
 	
 		//For Loop for Array Set Frog
-		for(int i = 0; i < 3; i++) {
+		for(int i = 0; i < 4; i++) {
 			cars[i].setFrog(frog1);
 		}
 		
 		//For Loop Array Set Frog Label
-		for(int i = 0; i < 3; i++) {
+		for(int i = 0; i < 4; i++) {
 			cars[i].setFrogLabel(frogLabel);
 		}
 		
-		//Initialize Truck
-		truck = new Truck();
-		truckLabel = new JLabel();
-		truckImage = new ImageIcon(getClass().getResource(truck.getFilename()));
-		truckLabel.setIcon(truckImage);
-		truckLabel.setSize(truck.getWidth(), truck.getHeight());
-		truck.setTruckLabel(truckLabel);
-		truck.setFrog(frog1);
-		truck.setFrogLabel(frogLabel);
+		//For Loop Add Car
+		for(int i = 0; i < 4; i++) {
+			add(carsLabel[i]);
+		}
+				
 		
-		//truck.setCar(cars[0]);
-		truck.setCar(car);
+		//For Loop Car Label Visible 
+		for(int i = 0; i < 4; i++) {
+			carsLabel[i].setVisible(cars[i].getVisible());
+		}
+		
+		//For Loop Start Game Button Cars Array
+		for(int i = 0; i < 4; i++) {
+			cars[i].setStartGameBtn(startGameBtn);
+		}
+		
+		//For Loop Car Label SetLocation 
+		for(int i = 0; i < 4; i++) {
+			carsLabel[i].setLocation(cars[i].getX(), cars[i].getY());
+		}
+		//*End of Initialize Car*
+		
+		
+		//**Initialize Truck**
+		//Array Truck 
+		trucks = new Truck[3];
+		trucks[0] = new Truck();
+		trucks[0].setX(150);
+		trucks[0].setY(600);
+		trucks[0].setFilename("truck.png");
+		
+		trucks[1] = new Truck();
+		trucks[1].setX(500);
+		trucks[1].setY(600);
+		trucks[1].setFilename("truck.png");
+		
+		trucks[2] = new Truck();
+		trucks[2].setX(800);
+		trucks[2].setY(600);
+		trucks[2].setFilename("truck.png");
+		
+		
+		//For loop to add labels 
+		trucksLabel = new JLabel[3];
+		for(int i = 0; i < 3; i++) {
+			trucksLabel[i] = new JLabel();
+		}
+		
+		//For Loop for Array Car Labels
+		trucksImage = new ImageIcon[3];
+		for(int i=0; i < 3; i++) {
+			trucksImage[i] = new ImageIcon(getClass().getResource(trucks[i].getFilename()));
+		}
+		
+	
+		//For Loop for Array Car Labels Set Icon
+		for(int i = 0; i < 3; i++) {
+			trucksLabel[i].setIcon(trucksImage[i]);
+		}
+		
+		
+		//For Loop for Array Car Labels Set Size
+		for(int i = 0; i < 3; i++) {
+			trucksLabel[i].setSize(trucks[i].getWidth(), trucks[i].getHeight());
+		}
+		
+
+		//For Loop for Array Set Car Labels 
+		for(int i = 0; i < 3; i++) {
+			trucks[i].setCarLabel(trucksLabel[i]);
+		}
+		
+	
+		//For Loop for Array Set Frog
+		for(int i = 0; i < 3; i++) {
+			trucks[i].setFrog(frog1);
+		}
+		
+		//For Loop Array Set Frog Label
+		for(int i = 0; i < 3; i++) {
+			trucks[i].setFrogLabel(frogLabel);
+		}
+		
+
+		//For Loop set car
+		for(int i = 0; i < 3; i++) {
+			trucks[i].setCar(cars[i]);
+		}
+		
+		//For Loop Add Truck
+		for(int i = 0; i < 3; i++) {
+			add(trucksLabel[i]);
+		}
+				
+		//For Loop Trucks Label Visible 
+		for(int i = 0; i < 3; i++) {
+			trucksLabel[i].setVisible(trucks[i].getVisible());
+		}
+		
+		//For Loop Truck Label SetLocation 
+		for(int i = 0; i < 3; i++) {
+			trucksLabel[i].setLocation(trucks[i].getX(), trucks[i].getY());
+		}
+		//*End of Initialize Truck*
+		
+		
 		
 		//Initialize Water
 		waterLabel = new JLabel();
@@ -186,10 +286,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		lilyPad.setStartGameBtn(startGameBtn);
 		
 		
-		//For Loop Start Game Button Cars Array
-		for(int i = 0; i < 3; i++) {
-			cars[i].setStartGameBtn(startGameBtn);
-		}
+		
 		
 		//Main content container
 		content = getContentPane();
@@ -214,24 +311,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		add(lilyPadOrangeLabel);
 		lilyPadOrangeLabel.setVisible(lilyPadOrange.getVisible());
 		
-		
-		//For Loop Add Car
-		for(int i = 0; i < 3; i++) {
-			add(carsLabel[i]);
-		}
-				
-		
-		//For Loop Car Label Visible 
-		for(int i = 0; i < 3; i++) {
-			carsLabel[i].setVisible(cars[i].getVisible());
-		}
-		
-		//Add Truck
-		truck.setX(0);
-		truck.setY(600);
-		add(truckLabel);
-		truckLabel.setVisible(truck.getVisible());
-		
+
 		//Add Water 
 		water.setX(100);
 		water.setY(100);
@@ -248,15 +328,6 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		lilyPadLabel.setLocation(lilyPad.getX(), lilyPad.getY());
 		lilyPadOrangeLabel.setLocation(lilyPadOrange.getX(), lilyPadOrange.getY());
 		
-		
-		//For Loop Car Label SetLocation 
-		for(int i = 0; i < 3; i++) {
-			carsLabel[i].setLocation(cars[i].getX(), cars[i].getY());
-		}
-		
-		
-		
-		truckLabel.setLocation(truck.getX(), truck.getY());
 		
 		
 		//Container - Need Down here
@@ -358,11 +429,15 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			lilyPadOrange.moveLilyPadOrange();
 			
 			//For Loop Move Car
-			for(int i = 0; i < 3; i++) {
+			for(int i = 0; i < 4; i++) {
 				cars[i].moveCar();
 			}
 			
-			truck.moveTruck();
+			//For Loop Move Trucks
+			for(int i = 0; i < 3; i++) {
+				trucks[i].moveTruck();
+			}
+			
 			startGameBtn.setVisible(false);
 		} 
 		
