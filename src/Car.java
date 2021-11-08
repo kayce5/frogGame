@@ -57,6 +57,7 @@ public class Car extends Sprite implements Runnable {
 		this.moving = false;
 	} 
 	
+	
 	//Constructor to use Car Label
 	public Car(JLabel temp) {
 		super(124, 200, "car.png");
@@ -124,6 +125,7 @@ public class Car extends Sprite implements Runnable {
 		if(this.rectangle.intersects(frog1.getRectangle())) {
 			System.out.print("\n Colision Car \n");
 			this.moving = (false);
+			
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDead.png")) );
 			//Need to set up so that it gives 3 lives and then is a play again button
 			GameMain.life = GameMain.life - 1;
@@ -138,10 +140,10 @@ public class Car extends Sprite implements Runnable {
 				JOptionPane.showMessageDialog(null, "Game Over!");
 				//Add code in here to start new game 
 				//Below makes a new game screen but does close other one ******
+				//Reset everything here
 				System.exit(0);
 			}
-			GameMain frogGame = new GameMain();
-			frogGame.setVisible(true);
+			
 		}
 		this.moving = (true);
 		

@@ -4,12 +4,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
 
 public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private static final long serialVersionUID = -4418414814196675442L;
@@ -19,15 +24,20 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private LilyPad lilyPad;
 	private LilyPadOrange lilyPadOrange;
 	private Car car;
+	private Car cars[]; //**** Array Car Check
 	private Truck truck;
 	private Water water;
-	private Road road;
+	private Road road;	
 	
 	//Graphic Labels
 	private JLabel frogLabel, lilyPadLabel, lilyPadOrangeLabel ,waterLabel, roadLabel;
-	private JLabel carLabel, truckLabel; //?? private JLabel[] carLabel;
+	private JLabel carLabel, truckLabel;
+	private JLabel carsLabel[];
 	
 	private ImageIcon frogImage, lilyPadImage, lilyPadOrangeImage, carImage, waterImage, roadImage, truckImage;
+	private ImageIcon carsImage[];
+	
+	
 	//Container for graphics - **set background , color etc**
 	private Container content; 
 	
@@ -80,14 +90,64 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		lilyPadOrange.setFrogLabel(frogLabel);
 		
 		//Initialize Car
-		car = new Car();
-		carLabel = new JLabel();
-		carImage = new ImageIcon(getClass().getResource(car.getFilename()));
-		carLabel.setIcon(carImage);
-		carLabel.setSize(car.getWidth(), car.getHeight());
-		car.setCarLabel(carLabel);
-		car.setFrog(frog1);
-		car.setFrogLabel(frogLabel);
+		//Array Car 
+		cars = new Car[3];
+		cars[0] = new Car();
+		cars[0].setX(400);
+		cars[0].setY(650);
+		cars[0].setFilename("car.png");
+		
+		cars[1] = new Car();
+		cars[1].setX(600);
+		cars[1].setY(650);
+		cars[1].setFilename("car.png");
+		
+		cars[2] = new Car();
+		cars[2].setX(900);
+		cars[2].setY(650);
+		cars[2].setFilename("car.png");
+		
+		
+		//For loop to add labels 
+		carsLabel = new JLabel[3];
+		for(int i = 0; i < 3; i++) {
+			carsLabel[i] = new JLabel();
+		}
+		
+		//For Loop for Array Car Labels
+		carsImage = new ImageIcon[3];
+		for(int i=0; i < 3; i++) {
+			carsImage[i] = new ImageIcon(getClass().getResource(cars[i].getFilename()));
+		}
+		
+	
+		//For Loop for Array Car Labels Set Icon
+		for(int i = 0; i < 3; i++) {
+			carsLabel[i].setIcon(carsImage[i]);
+		}
+		
+		
+		//For Loop for Array Car Labels Set Size
+		for(int i = 0; i < 3; i++) {
+			carsLabel[i].setSize(cars[i].getWidth(), cars[i].getHeight());
+		}
+		
+
+		//For Loop for Array Set Car Labels 
+		for(int i = 0; i < 3; i++) {
+			cars[i].setCarLabel(carsLabel[i]);
+		}
+		
+	
+		//For Loop for Array Set Frog
+		for(int i = 0; i < 3; i++) {
+			cars[i].setFrog(frog1);
+		}
+		
+		//For Loop Array Set Frog Label
+		for(int i = 0; i < 3; i++) {
+			cars[i].setFrogLabel(frogLabel);
+		}
 		
 		//Initialize Truck
 		truck = new Truck();
@@ -98,8 +158,10 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		truck.setTruckLabel(truckLabel);
 		truck.setFrog(frog1);
 		truck.setFrogLabel(frogLabel);
+		
+		//truck.setCar(cars[0]);
 		truck.setCar(car);
-	
+		
 		//Initialize Water
 		waterLabel = new JLabel();
 		water = new Water();
@@ -121,9 +183,13 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		add(startGameBtn);
 		startGameBtn.setFocusable(false); //Cannot grab focus away*
 		startGameBtn.addActionListener(this); //Add action listener to the button so it will respond
-		car.setStartGameBtn(startGameBtn);
 		lilyPad.setStartGameBtn(startGameBtn);
-				
+		
+		
+		//For Loop Start Game Button Cars Array
+		for(int i = 0; i < 3; i++) {
+			cars[i].setStartGameBtn(startGameBtn);
+		}
 		
 		//Main content container
 		content = getContentPane();
@@ -148,11 +214,17 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		add(lilyPadOrangeLabel);
 		lilyPadOrangeLabel.setVisible(lilyPadOrange.getVisible());
 		
-		//Add Car
-		car.setX(850);
-		car.setY(650);
-		add(carLabel);
-		carLabel.setVisible(car.getVisible());
+		
+		//For Loop Add Car
+		for(int i = 0; i < 3; i++) {
+			add(carsLabel[i]);
+		}
+				
+		
+		//For Loop Car Label Visible 
+		for(int i = 0; i < 3; i++) {
+			carsLabel[i].setVisible(cars[i].getVisible());
+		}
 		
 		//Add Truck
 		truck.setX(0);
@@ -175,7 +247,15 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		frogLabel.setLocation(frog1.getX(), frog1.getY());
 		lilyPadLabel.setLocation(lilyPad.getX(), lilyPad.getY());
 		lilyPadOrangeLabel.setLocation(lilyPadOrange.getX(), lilyPadOrange.getY());
-		carLabel.setLocation(car.getX(), car.getY());
+		
+		
+		//For Loop Car Label SetLocation 
+		for(int i = 0; i < 3; i++) {
+			carsLabel[i].setLocation(cars[i].getX(), cars[i].getY());
+		}
+		
+		
+		
 		truckLabel.setLocation(truck.getX(), truck.getY());
 		
 		
@@ -194,15 +274,80 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	public static void main(String[] args) {
 		GameMain frogGame = new GameMain();
 		frogGame.setVisible(true);
-	
+		
+		//Check for water col?**
+		frogGame.waterCol();
+		
+		
+		//Database*** Fix
+		/*
+				Connection conn; 
+				Statement stmt; 
+				String name = "Kiely";
+				score = 0;
+				
+				String nameReturn;
+				int scoreReturn;
+				
+				try {
+					//Load DB driver
+					Class.forName("com.mysql.jdbc.Driver");
+					
+					//Create Connection String
+					String URL = "jdbc.mysql://127.0.0.1:8889/playerTable";
+					
+					//Connect to DB 
+					conn = DriverManager.getConnection(URL, "root", "root");
+					
+					//Initialize Statement 
+					stmt = conn.createStatement();
+					
+					//Insert
+					stmt.execute("INSERT INTO playerTable (name, score) VALUES ('"+name+"', '"+score+"')");
+					
+					//Retrive
+					ResultSet rs = stmt.executeQuery("SELECT * FROM playerTable");
+					
+					while(rs.next()) {
+						nameReturn = rs.getString("name");
+						scoreReturn = rs.getInt("score");
+						
+						System.out.println("Name: " + name + "\nScore: " + score);
+					}
+					
+					
+				} catch (Exception e){
+					e.printStackTrace();
+				}//end of catch
+			*/	
+		
+		
+		
 		
 	} //End of Main
 	
 	
+	
+	//Check for water col?**
+	private void waterCol() {
+		/*
+		int fx = frog1.getX();
+		int wx = water.getX();
+		
+		if(fx == wx){
+			System.out.println("WATERCOL");
+		}
+		*/
+		
+	}
+	
 	public void score() {
-		score++;
+		score = score + 10;
 		System.out.printf("Score: %d \n", score);
 	}
+	
+	
+	
 	
 	//Functions for ActionListener and KeyListener
 	//Start Button
@@ -211,7 +356,12 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		if(e.getSource() == startGameBtn) {
 			lilyPad.moveLilyPad();
 			lilyPadOrange.moveLilyPadOrange();
-			car.moveCar();
+			
+			//For Loop Move Car
+			for(int i = 0; i < 3; i++) {
+				cars[i].moveCar();
+			}
+			
 			truck.moveTruck();
 			startGameBtn.setVisible(false);
 		} 

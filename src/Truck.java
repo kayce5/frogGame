@@ -101,7 +101,6 @@ public class Truck extends Sprite implements Runnable {
 	public void run() {
 		System.out.printf("Lives: %d \n", GameMain.life);
 		this.moving = true; 
-		
 		frogLabel.setIcon(new ImageIcon(getClass().getResource("frog.png")) );
 		
 		while(moving) { //Code here will remain moving until moving false - infinate loop
@@ -144,7 +143,8 @@ public class Truck extends Sprite implements Runnable {
 			System.out.print("\n Colision Truck \n");
 			this.moving = (false);
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDead.png")) );
-			//car.setMoving(false); **Cannot get to restart with car.setMoving(true);
+			//car.setMoving(false);//**Cannot get to restart with car.setMoving(true);
+			
 			//Need to set up so that it gives 3 lives and then is a play again button
 			GameMain.life = GameMain.life - 1;
 			if(GameMain.life != 0) {
@@ -154,7 +154,6 @@ public class Truck extends Sprite implements Runnable {
 				frog1.setY(700);
 				frogLabel.setLocation(frog1.getX(), frog1.getY());
 				frogLabel.setIcon(new ImageIcon(getClass().getResource("frog.png")) );
-				car.setMoving(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "Game Over!");
 				//Add code in here to start new game 
@@ -162,9 +161,9 @@ public class Truck extends Sprite implements Runnable {
 				//GameMain frogGame = new GameMain();
 				//frogGame.setVisible(true);
 				//System.exit(0);
-			}
-			
+			}			
 		}
+
 		this.moving = (true);
 	}
 	
