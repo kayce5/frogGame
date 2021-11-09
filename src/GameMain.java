@@ -77,18 +77,8 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		frog1.setX(480);
 		frog1.setY(700);
 		add(frogLabel);
-		
-		/*/Initialize LilyPad
-		lilyPad = new LilyPad();
-		lilyPadLabel = new JLabel();
-		lilyPadImage = new ImageIcon(getClass().getResource(lilyPad.getFilename()));
-		lilyPadLabel.setIcon(lilyPadImage);
-		lilyPadLabel.setSize(lilyPad.getWidth(), lilyPad.getHeight());
-		lilyPad.setLilyPadLabel(lilyPadLabel);
-		lilyPad.setFrog(frog1);
-		lilyPad.setFrogLabel(frogLabel);*/
-		
-		
+		frogLabel.setLocation(frog1.getX(), frog1.getY());
+	
 		//**Initialize LilyPad**
 		//Array LilyPad 
 		lilyPads = new LilyPad[4];
@@ -169,16 +159,6 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			lilyPads[i].setFrogLabel(frogLabel);
 		}
 		//*End of Initialize LilyPad
-		
-		/*/Initialize LilyPadOrange
-		lilyPadOrange = new LilyPadOrange();
-		lilyPadOrangeLabel = new JLabel();
-		lilyPadOrangeImage = new ImageIcon(getClass().getResource(lilyPadOrange.getFilename()));
-		lilyPadOrangeLabel.setIcon(lilyPadOrangeImage);
-		lilyPadOrangeLabel.setSize(lilyPadOrange.getWidth(), lilyPadOrange.getHeight());
-		lilyPadOrange.setLilyPadLabel(lilyPadOrangeLabel);
-		lilyPadOrange.setFrog(frog1);
-		lilyPadOrange.setFrogLabel(frogLabel); */
 		
 		//Initialize LilyPadOrange**
 		//Array LilyPadOrange
@@ -500,28 +480,12 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		startGameBtn.addActionListener(this); //Add action listener to the button so it will respond
 		//lilyPad.setStartGameBtn(startGameBtn);
 		
-	
 		
 		//Main content container
 		content = getContentPane();
 		Color myColor = Color.decode("#477d36");
 		content.setBackground(myColor); //**Need to fix
 		setLayout(null); //Allow to position characters on screen
-		
-		//Adding characters on screen
-		
-	
-		/*/Add LilyPad
-		lilyPad.setX(750);
-		lilyPad.setY(290);
-		add(lilyPadLabel);
-		lilyPadLabel.setVisible(lilyPad.getVisible()); */
-		
-		/*/Add LilyPadOrange
-		lilyPadOrange.setX(750);
-		lilyPadOrange.setY(220);
-		add(lilyPadOrangeLabel);
-		lilyPadOrangeLabel.setVisible(lilyPadOrange.getVisible());*/
 		
 
 		//Add Water 
@@ -530,18 +494,10 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		waterLabel.setLocation(0, -180);
 		add(waterLabel);
 		
-		//Add Water 
+		//Add Road 
 		roadLabel.setLocation(0, 170);
 		add(roadLabel);
 
-
-		//Update Label Positions - match stored values
-		frogLabel.setLocation(frog1.getX(), frog1.getY());
-		//lilyPadLabel.setLocation(lilyPad.getX(), lilyPad.getY());
-		//lilyPadOrangeLabel.setLocation(lilyPadOrange.getX(), lilyPadOrange.getY());
-		
-		
-		
 		//Container - Need Down here
 		content.addKeyListener(this); //Adds keylistener to main window
 		content.setFocusable(true); //Grabs focus for main content
@@ -559,47 +515,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		frogGame.setVisible(true);
 	
 		
-		//Database*** Fix
-		/*
-				Connection conn; 
-				Statement stmt; 
-				String name = "Kiely";
-				score = 0;
-				
-				String nameReturn;
-				int scoreReturn;
-				
-				try {
-					//Load DB driver
-					Class.forName("com.mysql.jdbc.Driver");
-					
-					//Create Connection String
-					String URL = "jdbc.mysql://127.0.0.1:8889/playerTable";
-					
-					//Connect to DB 
-					conn = DriverManager.getConnection(URL, "root", "root");
-					
-					//Initialize Statement 
-					stmt = conn.createStatement();
-					
-					//Insert
-					stmt.execute("INSERT INTO playerTable (name, score) VALUES ('"+name+"', '"+score+"')");
-					
-					//Retrive
-					ResultSet rs = stmt.executeQuery("SELECT * FROM playerTable");
-					
-					while(rs.next()) {
-						nameReturn = rs.getString("name");
-						scoreReturn = rs.getInt("score");
-						
-						System.out.println("Name: " + name + "\nScore: " + score);
-					}
-					
-					
-				} catch (Exception e){
-					e.printStackTrace();
-				}//end of catch
-			*/	
+	
 		
 		
 		
@@ -618,10 +534,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	//Start Button
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == startGameBtn) {
-			//lilyPad.moveLilyPad();
-			//lilyPadOrange.moveLilyPadOrange();
-			
+		if(e.getSource() == startGameBtn) {		
 			//For Loop Move Car
 			for(int i = 0; i < 8; i++) {
 				cars[i].moveCar();
