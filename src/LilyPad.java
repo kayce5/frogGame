@@ -137,12 +137,12 @@ public class LilyPad extends Sprite implements Runnable {
 		
 		boolean onLilyPad = false;
 		
-		//Figure out if frog is on LilyPad 
+		
 		if (this.rectangle.intersects(frog1.getRectangle())) {
 			onLilyPad = true;
 		}
 		
-		//If frog is between water y and isnt on lilypad - lose life
+		//Need frog to die if he hits water unless he is on lilypad
 		if(fy <= 335 && fy >= 40 && onLilyPad == false) {
 			System.out.println("In water");
 			JOptionPane.showMessageDialog(null, "Uh-Oh");
@@ -151,9 +151,8 @@ public class LilyPad extends Sprite implements Runnable {
 			frogLabel.setLocation(frog1.getX(), frog1.getY());
 			
 		} else if (this.rectangle.intersects(frog1.getRectangle())) {
-			System.out.print("Colision LilyPad");
+			//System.out.print("Colision LilyPad");
 			//To make frog move with lily pad
-			
 			fx = this.getX();
 			fy = this.getY();
 			
