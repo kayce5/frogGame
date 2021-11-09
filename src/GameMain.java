@@ -25,6 +25,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private LilyPadOrange lilyPadOrange;
 	private Car cars[]; 
 	private LilyPad lilyPads[];
+	private LilyPadOrange lilyPadsOrange[];
 	private Truck trucks[];
 	private Water water;
 	private Road road;	
@@ -34,12 +35,14 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private JLabel carsLabel[];
 	private JLabel trucksLabel[];
 	private JLabel lilyPadsLabel[];
+	private JLabel lilyPadsOrangeLabel[];
 	
 	
 	private ImageIcon frogImage, lilyPadImage, lilyPadOrangeImage, waterImage, roadImage, lifeImage1, lifeImage2, lifeImage3;
 	private ImageIcon carsImage[];
 	private ImageIcon trucksImage[];
 	private ImageIcon lilyPadsImage[];
+	private ImageIcon lilyPadsOrangeImage[];
 	
 	//Container for graphics - **set background , color etc**
 	private Container content; 
@@ -71,8 +74,11 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		frogImage = new ImageIcon(getClass().getResource(frog1.getFilename()));
 		frogLabel.setIcon(frogImage);
 		frogLabel.setSize(frog1.getWidth(), frog1.getHeight());
+		frog1.setX(480);
+		frog1.setY(700);
+		add(frogLabel);
 		
-		//Initialize LilyPad
+		/*/Initialize LilyPad
 		lilyPad = new LilyPad();
 		lilyPadLabel = new JLabel();
 		lilyPadImage = new ImageIcon(getClass().getResource(lilyPad.getFilename()));
@@ -80,19 +86,20 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		lilyPadLabel.setSize(lilyPad.getWidth(), lilyPad.getHeight());
 		lilyPad.setLilyPadLabel(lilyPadLabel);
 		lilyPad.setFrog(frog1);
-		lilyPad.setFrogLabel(frogLabel);
+		lilyPad.setFrogLabel(frogLabel);*/
+		
 		
 		//**Initialize LilyPad**
-		//Array Truck 
-		lilyPads = new LilyPad[3];
+		//Array LilyPad 
+		lilyPads = new LilyPad[4];
 		lilyPads[0] = new LilyPad();
 		lilyPads[0].setX(750);
-		lilyPads[0].setY(145);
+		lilyPads[0].setY(145); 
 		lilyPads[0].setFilename("lilypad1.png");
 		
 		lilyPads[1] = new LilyPad();
 		lilyPads[1].setX(750);
-		lilyPads[1].setY(75);
+		lilyPads[1].setY(290);
 		lilyPads[1].setFilename("lilypad1.png");
 		
 		lilyPads[2] = new LilyPad();
@@ -100,67 +107,70 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		lilyPads[2].setY(145);
 		lilyPads[2].setFilename("lilypad1.png");
 		
+		lilyPads[3] = new LilyPad();
+		lilyPads[3].setX(400);
+		lilyPads[3].setY(290);
+		lilyPads[3].setFilename("lilypad1.png");
 		
-		//For loop for Array Truck Labels
-		lilyPadsLabel = new JLabel[3];
-		for(int i = 0; i < 3; i++) {
+		
+		//For loop for Array LilyPad Labels
+		lilyPadsLabel = new JLabel[4];
+		for(int i = 0; i < 4; i++) {
 			lilyPadsLabel[i] = new JLabel();
 		}
 		
-		//For Loop for Array Truck Images
-		lilyPadsImage = new ImageIcon[3];
-		for(int i=0; i < 3; i++) {
+		//For Loop for Array LilyPad Images
+		lilyPadsImage = new ImageIcon[4];
+		for(int i=0; i < 4; i++) {
 			lilyPadsImage[i] = new ImageIcon(getClass().getResource(lilyPads[i].getFilename()));
 		}
 		
 	
-		//For Loop for Array Truck Labels Set Icon
-		for(int i = 0; i < 3; i++) {
+		//For Loop for Array LilyPad Labels Set Icon
+		for(int i = 0; i < 4; i++) {
 			lilyPadsLabel[i].setIcon(lilyPadsImage[i]);
 		}
 		
 		
-		//For Loop for Array Truck Labels Set Size
-		for(int i = 0; i < 3; i++) {
+		//For Loop for Array LilyPad Labels Set Size
+		for(int i = 0; i < 4; i++) {
 			lilyPadsLabel[i].setSize(lilyPads[i].getWidth(), lilyPads[i].getHeight());
 		}
 		
 
-		//For Loop for Array Set Truck Labels 
-		for(int i = 0; i < 3; i++) {
+		//For Loop for Array Set LilyPad Labels 
+		for(int i = 0; i < 4; i++) {
 			lilyPads[i].setLilyPadLabel(lilyPadsLabel[i]);
 		}
 		
-	
-		//For Loop for Array Set Frog
-		for(int i = 0; i < 3; i++) {
-			lilyPads[i].setFrog(frog1);
-		}
-		
-		//For Loop Array Set Frog Label
-		for(int i = 0; i < 3; i++) {
-			lilyPads[i].setFrogLabel(frogLabel);
-		}
-		
-		
-		//For Loop Add Truck
-		for(int i = 0; i < 3; i++) {
+		//For Loop Add LilyPad
+		for(int i = 0; i < 4; i++) {
 			add(lilyPadsLabel[i]);
 		}
 				
-		//For Loop Trucks Label Visible 
-		for(int i = 0; i < 3; i++) {
+		//For Loop LilyPad Label Visible 
+		for(int i = 0; i < 4; i++) {
 			lilyPadsLabel[i].setVisible(lilyPads[i].getVisible());
 		}
 		
-		//For Loop Truck Label SetLocation 
-		for(int i = 0; i < 3; i++) {
+		//For Loop LilyPad Label SetLocation 
+		for(int i = 0; i < 4; i++) {
 			lilyPadsLabel[i].setLocation(lilyPads[i].getX(), lilyPads[i].getY());
 		}
 		
-		//*End of Initialize Truck*
+		//For Loop for Array Set Frog
+		for(int i = 0; i < 4; i++) {
+			lilyPads[i].setFrog(frog1);
+			lilyPads[i].setPosition(i);
+		}
 		
-		//Initialize LilyPadOrange
+		//For Loop Array Set Frog Label
+		for(int i = 0; i < 4; i++) {
+			lilyPads[i].setFrogLabel(frogLabel);
+		}
+		//*End of Initialize LilyPad
+		
+		/*/Initialize LilyPadOrange
 		lilyPadOrange = new LilyPadOrange();
 		lilyPadOrangeLabel = new JLabel();
 		lilyPadOrangeImage = new ImageIcon(getClass().getResource(lilyPadOrange.getFilename()));
@@ -168,7 +178,90 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		lilyPadOrangeLabel.setSize(lilyPadOrange.getWidth(), lilyPadOrange.getHeight());
 		lilyPadOrange.setLilyPadLabel(lilyPadOrangeLabel);
 		lilyPadOrange.setFrog(frog1);
-		lilyPadOrange.setFrogLabel(frogLabel);
+		lilyPadOrange.setFrogLabel(frogLabel); */
+		
+		//Initialize LilyPadOrange**
+		//Array LilyPadOrange
+		lilyPadsOrange = new LilyPadOrange[4];
+		lilyPadsOrange[0] = new LilyPadOrange();
+		lilyPadsOrange[0].setX(200);
+		lilyPadsOrange[0].setY(75);
+		lilyPadsOrange[0].setFilename("lilypadOrange.png");
+		
+		lilyPadsOrange[1] = new LilyPadOrange();
+		lilyPadsOrange[1].setX(750);
+		lilyPadsOrange[1].setY(75);
+		lilyPadsOrange[1].setFilename("lilypadOrange.png");
+		
+		lilyPadsOrange[2] = new LilyPadOrange();
+		lilyPadsOrange[2].setX(200);
+		lilyPadsOrange[2].setY(225);
+		lilyPadsOrange[2].setFilename("lilypadOrange.png");
+		
+		lilyPadsOrange[3] = new LilyPadOrange();
+		lilyPadsOrange[3].setX(700);
+		lilyPadsOrange[3].setY(225);
+		lilyPadsOrange[3].setFilename("lilypadOrange.png");
+		
+		//For loop for Array LilyPad Labels
+		lilyPadsOrangeLabel = new JLabel[4];
+		for(int i = 0; i < 4; i++) {
+			lilyPadsOrangeLabel[i] = new JLabel();
+		}
+		
+		//For Loop for Array LilyPad Images
+		lilyPadsOrangeImage = new ImageIcon[4];
+		for(int i=0; i < 4; i++) {
+			lilyPadsOrangeImage[i] = new ImageIcon(getClass().getResource(lilyPadsOrange[i].getFilename()));
+		}
+		
+	
+		//For Loop for Array LilyPad Labels Set Icon
+		for(int i = 0; i < 4; i++) {
+			lilyPadsOrangeLabel[i].setIcon(lilyPadsOrangeImage[i]);
+		}
+		
+		
+		//For Loop for Array LilyPad Labels Set Size
+		for(int i = 0; i < 4; i++) {
+			lilyPadsOrangeLabel[i].setSize(lilyPadsOrange[i].getWidth(), lilyPadsOrange[i].getHeight());
+		}
+		
+
+		//For Loop for Array Set LilyPad Labels 
+		for(int i = 0; i < 4; i++) {
+			lilyPadsOrange[i].setLilyPadLabel(lilyPadsOrangeLabel[i]);
+		}
+		
+	
+		//For Loop for Array Set Frog
+		for(int i = 0; i < 4; i++) {
+			lilyPadsOrange[i].setFrog(frog1);
+			int offset = i + 4;
+			lilyPadsOrange[i].setPosition(offset);
+		}
+		
+		//For Loop Array Set Frog Label
+		for(int i = 0; i < 4; i++) {
+			lilyPadsOrange[i].setFrogLabel(frogLabel);
+		}
+		
+		
+		//For Loop Add LilyPad
+		for(int i = 0; i < 4; i++) {
+			add(lilyPadsOrangeLabel[i]);
+		}
+				
+		//For Loop LilyPad Label Visible 
+		for(int i = 0; i < 4; i++) {
+			lilyPadsOrangeLabel[i].setVisible(lilyPadsOrange[i].getVisible());
+		}
+		
+		//For Loop LilyPad Label SetLocation 
+		for(int i = 0; i < 4; i++) {
+			lilyPadsOrangeLabel[i].setLocation(lilyPadsOrange[i].getX(), lilyPadsOrange[i].getY());
+		}
+		//*End of Initialize LilyPad */
 		
 		//**Initialize Car**
 		//Array Car 
@@ -196,22 +289,22 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		cars[4] = new Car();
 		cars[4].setX(480);
 		cars[4].setY(465);
-		cars[4].setFilename("car.png");
+		cars[4].setFilename("car3.png");
 		
 		cars[5] = new Car();
 		cars[5].setX(600);
 		cars[5].setY(465);
-		cars[5].setFilename("car2.png");
+		cars[5].setFilename("car.png");
 		
 		cars[6] = new Car();
 		cars[6].setX(900);
 		cars[6].setY(465);
-		cars[6].setFilename("car.png");
+		cars[6].setFilename("car2.png");
 		
 		cars[7] = new Car();
 		cars[7].setX(200);
 		cars[7].setY(465);
-		cars[7].setFilename("car3.png");
+		cars[7].setFilename("car2.png");
 		
 		
 		//For loop to add labels 
@@ -405,7 +498,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		add(startGameBtn);
 		startGameBtn.setFocusable(false); //Cannot grab focus away*
 		startGameBtn.addActionListener(this); //Add action listener to the button so it will respond
-		lilyPad.setStartGameBtn(startGameBtn);
+		//lilyPad.setStartGameBtn(startGameBtn);
 		
 	
 		
@@ -416,21 +509,19 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		setLayout(null); //Allow to position characters on screen
 		
 		//Adding characters on screen
-		frog1.setX(480);
-		frog1.setY(700);
-		add(frogLabel);
+		
 	
-		//Add LilyPad
+		/*/Add LilyPad
 		lilyPad.setX(750);
 		lilyPad.setY(290);
 		add(lilyPadLabel);
-		lilyPadLabel.setVisible(lilyPad.getVisible());
+		lilyPadLabel.setVisible(lilyPad.getVisible()); */
 		
-		//Add LilyPadOrange
+		/*/Add LilyPadOrange
 		lilyPadOrange.setX(750);
 		lilyPadOrange.setY(220);
 		add(lilyPadOrangeLabel);
-		lilyPadOrangeLabel.setVisible(lilyPadOrange.getVisible());
+		lilyPadOrangeLabel.setVisible(lilyPadOrange.getVisible());*/
 		
 
 		//Add Water 
@@ -446,8 +537,8 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 
 		//Update Label Positions - match stored values
 		frogLabel.setLocation(frog1.getX(), frog1.getY());
-		lilyPadLabel.setLocation(lilyPad.getX(), lilyPad.getY());
-		lilyPadOrangeLabel.setLocation(lilyPadOrange.getX(), lilyPadOrange.getY());
+		//lilyPadLabel.setLocation(lilyPad.getX(), lilyPad.getY());
+		//lilyPadOrangeLabel.setLocation(lilyPadOrange.getX(), lilyPadOrange.getY());
 		
 		
 		
@@ -528,8 +619,8 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == startGameBtn) {
-			lilyPad.moveLilyPad();
-			lilyPadOrange.moveLilyPadOrange();
+			//lilyPad.moveLilyPad();
+			//lilyPadOrange.moveLilyPadOrange();
 			
 			//For Loop Move Car
 			for(int i = 0; i < 8; i++) {
@@ -542,9 +633,14 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			}
 			
 			//For Loop Move LilyPad
-			for(int i = 0; i < 3; i++) {
+			for(int i = 0; i < 4; i++) {
 				lilyPads[i].moveLilyPad();
 			}
+			
+			//For Loop Move LilyPadOrange
+			for(int i = 0; i < 4; i++) {
+				lilyPadsOrange[i].moveLilyPadOrange();
+			} // */
 			
 			startGameBtn.setVisible(false);
 		} 

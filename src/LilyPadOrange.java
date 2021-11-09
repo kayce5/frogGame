@@ -1,10 +1,12 @@
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class LilyPadOrange extends Sprite implements Runnable {
 	
 	private Boolean moving, visible;
+	private int position; 
 	private Thread lilyOrangeT;
 	private JLabel lilyPadOrangeLabel, frogLabel;
 	private JButton startGameBtn;
@@ -12,6 +14,14 @@ public class LilyPadOrange extends Sprite implements Runnable {
 	
 
 	//Getters and Setters
+	public int getPosition() {
+		return position; 
+	}
+	
+	public void setPosition(int position) {
+		this.position = position;
+	}
+	
 	public Boolean getVisible() {
 		return visible;
 	}
@@ -132,11 +142,31 @@ public class LilyPadOrange extends Sprite implements Runnable {
 	}
 	
 	private void detectLilyPadOrangeCollision() {
-		if(this.rectangle.intersects(frog1.getRectangle())) {
+		int fx = frog1.getX();
+		int fy = frog1.getY();
+		
+		//boolean onLilyPad = false;
+		
+		if (this.rectangle.intersects(frog1.getRectangle())) {
+			//onLilyPad = true;
+			frog1.setOnLilyPad(true, this.position);
+		} else {
+			frog1.setOnLilyPad(false, this.position);
+		}
+		
+		//Need frog to die if he hits water unless he is on lilypad
+		if(fy <= 335 && fy >= 40 && !frog1.checkFrogLilyPad()) {
+			System.out.println("In water");
+			JOptionPane.showMessageDialog(null, "You hit the water");
+			frog1.setX(480);
+			frog1.setY(700);
+			frogLabel.setLocation(frog1.getX(), frog1.getY());
+			
+		} else if (this.rectangle.intersects(frog1.getRectangle())) {
 			//System.out.print("Colision LilyPad");
 			//To make frog move with lily pad
-			int fx = this.getX();
-			int fy = this.getY();
+			fx = this.getX();
+			fy = this.getY();
 			
 			frog1.setX(fx);
 			frog1.setY(fy);

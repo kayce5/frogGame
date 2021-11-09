@@ -6,15 +6,22 @@ import javax.swing.JOptionPane;
 public class LilyPad extends Sprite implements Runnable {
 	
 	private Boolean moving, visible;
+	private int position; 
 	private Thread lilyT;
 	private JLabel lilyPadLabel, frogLabel;
 	private JButton startGameBtn;
 	private Frog frog1;
 	
-	
-	
-	
+
 	//Getters and Setters
+	public int getPosition() {
+		return position; 
+	}
+	
+	public void setPosition(int position) {
+		this.position = position;
+	}
+	
 	public Boolean getVisible() {
 		return visible;
 	}
@@ -135,17 +142,20 @@ public class LilyPad extends Sprite implements Runnable {
 		int fx = frog1.getX();
 		int fy = frog1.getY();
 		
-		boolean onLilyPad = false;
+		//boolean onLilyPad = false;
 		
 		
 		if (this.rectangle.intersects(frog1.getRectangle())) {
-			onLilyPad = true;
+			//onLilyPad = true;
+			frog1.setOnLilyPad(true, this.position);
+		} else {
+			frog1.setOnLilyPad(false, this.position);
 		}
 		
 		//Need frog to die if he hits water unless he is on lilypad
-		if(fy <= 335 && fy >= 40 && onLilyPad == false) {
+		if(fy <= 335 && fy >= 40 && !frog1.checkFrogLilyPad()) {
 			System.out.println("In water");
-			JOptionPane.showMessageDialog(null, "Uh-Oh");
+			JOptionPane.showMessageDialog(null, "You hit the water");
 			frog1.setX(480);
 			frog1.setY(700);
 			frogLabel.setLocation(frog1.getX(), frog1.getY());
