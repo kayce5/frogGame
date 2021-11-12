@@ -153,6 +153,7 @@ public class LilyPad extends Sprite implements Runnable {
 			frog1.setY(700);
 			frogLabel.setLocation(frog1.getX(), frog1.getY());
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDead.png")) );
+			
 			//Decide options based on lives
 			GameMain.life = GameMain.life - 1;
 			if(GameMain.life != 0) {
@@ -231,13 +232,12 @@ public class LilyPad extends Sprite implements Runnable {
 			} //End of 1st else
 			
 		} else if (this.rectangle.intersects(frog1.getRectangle())) {
-			//System.out.print("Colision LilyPad");
 			//To make frog move with lily pad
 			fx = this.getX();
 			fy = this.getY();
 			
-			frog1.setX(fx);
-			frog1.setY(fy);
+			frog1.setX(fx + 3);
+			frog1.setY(fy + 3);
 			
 			frogLabel.setLocation(fx, fy);
 		

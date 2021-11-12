@@ -24,8 +24,6 @@ import javax.swing.border.LineBorder;
 public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private static final long serialVersionUID = -4418414814196675442L;
 	
-	private JFrame frame;
-	
 	//Storage Classes
 	private Frog frog1;
 	private Car cars[];
@@ -56,7 +54,6 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	
 	//Start Button
 	private JButton startGameBtn;
-	private JButton scoreBoardBtn;
 	
 	//Lives 
 	public static int life = 3;
@@ -80,7 +77,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		//Start Button Initial 
 		startGameBtn = new JButton();
 		startGameBtn.setBorder(BorderFactory.createBevelBorder(1, Color.white, Color.white));
-		startGameBtn.setText("<html><p style='text-align:center'>Welcome to Frogger<br />Please Click Here <br/> to Start Game!</p></html>");
+		startGameBtn.setText("<html><p style='text-align:center'>Welcome to Frogger<br />Please Click Here to<br/>Start Game!</p></html>");
 		Color backgroundColor = Color.decode("#295c46");
 		startGameBtn.setBackground(backgroundColor);
 		startGameBtn.setFont(new Font("Arial", Font.BOLD, 20));
@@ -128,7 +125,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		
 		lilyPads[1] = new LilyPad();
 		lilyPads[1].setX(750);
-		lilyPads[1].setY(300);
+		lilyPads[1].setY(300); //225
 		lilyPads[1].setFilename("lilypad1.png");
 		
 		lilyPads[2] = new LilyPad();
@@ -138,7 +135,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		
 		lilyPads[3] = new LilyPad();
 		lilyPads[3].setX(400);
-		lilyPads[3].setY(300);
+		lilyPads[3].setY(300); //225
 		lilyPads[3].setFilename("lilypad1.png");
 		
 		//For loop for Array LilyPad Labels
@@ -203,22 +200,22 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		lilyPadsOrange = new LilyPadOrange[4];
 		lilyPadsOrange[0] = new LilyPadOrange();
 		lilyPadsOrange[0].setX(200);
-		lilyPadsOrange[0].setY(65);
+		lilyPadsOrange[0].setY(70);
 		lilyPadsOrange[0].setFilename("lilypadOrange.png");
 		
 		lilyPadsOrange[1] = new LilyPadOrange();
 		lilyPadsOrange[1].setX(750);
-		lilyPadsOrange[1].setY(65);
+		lilyPadsOrange[1].setY(70);
 		lilyPadsOrange[1].setFilename("lilypadOrange.png");
 		
 		lilyPadsOrange[2] = new LilyPadOrange();
 		lilyPadsOrange[2].setX(200);
-		lilyPadsOrange[2].setY(225);
+		lilyPadsOrange[2].setY(225); //300
 		lilyPadsOrange[2].setFilename("lilypadOrange.png");
 		
 		lilyPadsOrange[3] = new LilyPadOrange();
 		lilyPadsOrange[3].setX(700);
-		lilyPadsOrange[3].setY(225);
+		lilyPadsOrange[3].setY(225); //300
 		lilyPadsOrange[3].setFilename("lilypadOrange.png");
 		
 		//For loop for Array LilyPad Labels

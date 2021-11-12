@@ -118,7 +118,7 @@ public class Car extends Sprite implements Runnable {
 	private void detectCarCollision() {
 		int fy = frog1.getY();
 		//See if you won - checks y so will work for all
-		if(fy <= 40 && fy >= 0) {
+		if(fy <= 40 && fy <= 0) {
 			frog1.setX(480);
 			frog1.setY(700);
 			JOptionPane.showMessageDialog(null, "YOU DID IT");

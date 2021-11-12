@@ -239,8 +239,8 @@ public class LilyPadOrange extends Sprite implements Runnable {
 			fx = this.getX();
 			fy = this.getY();
 			
-			frog1.setX(fx);
-			frog1.setY(fy);
+			frog1.setX(fx + 3);
+			frog1.setY(fy + 3);
 			
 			frogLabel.setLocation(fx, fy);
 		
