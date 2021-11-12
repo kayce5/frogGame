@@ -1,3 +1,9 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -129,9 +135,10 @@ public class Truck extends Sprite implements Runnable {
 		int fy = frog1.getY();
 		
 		
+		
 		if(fy <= 660 && fy >= 430 && this.rectangle.intersects(frog1.getRectangle())) {
-			System.out.println("Your on the road");
-			System.out.print("\n Colision Truck \n");
+			//System.out.println("Your on the road");
+			//System.out.print("\n Colision Truck \n");
 			this.moving = (false);
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDead.png")) );
 			
@@ -150,6 +157,55 @@ public class Truck extends Sprite implements Runnable {
 				JOptionPane.showMessageDialog(null, "You now have lives: " + GameMain.life);
 				GameMain.name = JOptionPane.showInputDialog("What is your name?");
 				JOptionPane.showMessageDialog(null, "Youre score is: " + GameMain.score);
+				
+				//Declare connection and sql statement
+				Connection conn = null;
+				Statement stmt = null;
+				
+				try {
+					Class.forName("org.sqlite.JDBC");
+					//System.out.println("Database Driver Loaded");
+					
+					String dbURL = "jdbc:sqlite:playerScore.db";
+					conn = DriverManager.getConnection(dbURL);
+					
+					if (conn != null) {
+						//System.out.println("Connected to database");
+						conn.setAutoCommit(false);
+						stmt = conn.createStatement();
+						
+						String sql = "CREATE TABLE IF NOT EXISTS PLAYER_SCORE" +
+						             "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+								     " NAME TEXT NOT NULL, " + 
+						             " SCORE INT NOT NULL)";
+						stmt.executeUpdate(sql);
+						conn.commit();
+						//System.out.println("Table Created Successfully");
+						
+						//Insert
+						sql = "INSERT INTO PLAYER_SCORE (NAME, SCORE) VALUES " + 
+		                        "('"+ GameMain.name +"', '"+ GameMain.score +"')";
+						stmt.executeUpdate(sql);
+						conn.commit();//*/
+						
+						ResultSet rs = stmt.executeQuery("SELECT * FROM PLAYER_SCORE ORDER BY SCORE DESC");
+						System.out.println("     SCOREBOARD");
+						System.out.println(" ====================");
+						DisplayRecords(rs);
+						rs.close();
+						
+
+						conn.close(); //Close Connection to DB File
+					}
+					
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				} //End of Database 
+				
 				int input = JOptionPane.showConfirmDialog(null, "Sorry you are out of lives ! \nWould you like to play again? ", "Gameover!", JOptionPane.YES_NO_OPTION);
 				if(input == 0) {
 					System.out.println("You clicked yes and would like to play again");
@@ -166,6 +222,17 @@ public class Truck extends Sprite implements Runnable {
 		}//End of is statement
 		this.moving = (true);
 		
+	}
+	public static void DisplayRecords(ResultSet rs) throws SQLException {
+		while ( rs.next() ) {
+			String name = rs.getString("name");
+			int score = rs.getInt("score");
+			
+			System.out.println("    Name  = " + name);
+			System.out.println("    Score = " + score);
+			System.out.println(" ====================");
+
+		}
 	}
 	
 }

@@ -18,12 +18,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
-
-
 
 public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private static final long serialVersionUID = -4418414814196675442L;
+	
+	private JFrame frame;
 	
 	//Storage Classes
 	private Frog frog1;
@@ -55,12 +56,13 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	
 	//Start Button
 	private JButton startGameBtn;
+	private JButton scoreBoardBtn;
 	
 	//Lives 
 	public static int life = 3;
 	
 	//Score
-	public static String name = "Matthew";
+	public static String name = "";
 	public static int score = 0;
 	
 	//Gui Constructor 
@@ -78,7 +80,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		//Start Button Initial 
 		startGameBtn = new JButton();
 		startGameBtn.setBorder(BorderFactory.createBevelBorder(1, Color.white, Color.white));
-		startGameBtn.setText("<html><p style='text-align:center'>Welcome to Frogger<br />Please Click to Start Game</p></html>");
+		startGameBtn.setText("<html><p style='text-align:center'>Welcome to Frogger<br />Please Click Here <br/> to Start Game!</p></html>");
 		Color backgroundColor = Color.decode("#295c46");
 		startGameBtn.setBackground(backgroundColor);
 		startGameBtn.setFont(new Font("Arial", Font.BOLD, 20));
@@ -89,6 +91,21 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		add(startGameBtn);
 		startGameBtn.setFocusable(false); //Cannot grab focus away*
 		startGameBtn.addActionListener(this); //Add action listener to the button so it will respond }
+		
+		/*/ScoreBoard -- Working on this
+		scoreBoardBtn = new JButton();
+		scoreBoardBtn.setBorder(BorderFactory.createBevelBorder(1, Color.white, Color.white));
+		scoreBoardBtn.setText("<html><p style='text-align:center'>Click Here to Open<br />Scoreboard!</p></html>");
+		Color backgroundColor1 = Color.decode("#295c46");
+		scoreBoardBtn.setBackground(backgroundColor1);
+		scoreBoardBtn.setFont(new Font("Arial", Font.BOLD, 15));
+		Color textColor1 = Color.decode("#ffffff");
+		scoreBoardBtn.setForeground(textColor1);
+		scoreBoardBtn.setSize(250, 75);
+		scoreBoardBtn.setLocation(375, 471); 
+		add(scoreBoardBtn);
+		scoreBoardBtn.setFocusable(false); 
+		scoreBoardBtn.addActionListener(this); //*/
 		
 		//Initialize Frog
 		frogLabel = new JLabel();
@@ -504,20 +521,19 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	public static void main(String[] args) {
 		GameMain frogGame = new GameMain();
 		frogGame.setVisible(true);
-		
 		//Declare connection and sql statement
 		Connection conn = null;
 		Statement stmt = null;
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
-			System.out.println("Database Driver Loaded");
+			//System.out.println("Database Driver Loaded");
 			
 			String dbURL = "jdbc:sqlite:playerScore.db";
 			conn = DriverManager.getConnection(dbURL);
 			
 			if (conn != null) {
-				System.out.println("Connected to database");
+				//System.out.println("Connected to database");
 				conn.setAutoCommit(false);
 				stmt = conn.createStatement();
 				
@@ -527,13 +543,14 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 				             " SCORE INT NOT NULL)";
 				stmt.executeUpdate(sql);
 				conn.commit();
-				System.out.println("Table Created Successfully");
+				//System.out.println("Table Created Successfully");
 				
-				/*/Insert
-				sql = "INSERT INTO PLAYER_SCORE (NAME, SCORE) VALUES " + 
-                        "('"+ name +"', '"+ score +"')";
-				stmt.executeUpdate(sql);
-				conn.commit();*/
+				
+				ResultSet rs = stmt.executeQuery("SELECT * FROM PLAYER_SCORE ORDER BY SCORE DESC");
+				System.out.println("     SCOREBOARD");
+				System.out.println(" ====================");
+				GameMain.DisplayRecords(rs);
+				rs.close();
 				
 
 				conn.close(); //Close Connection to DB File
@@ -545,12 +562,23 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} //End of Database 
 
 
 				
 	} //End of Main
-
+	
+	public static void DisplayRecords(ResultSet rs) throws SQLException {
+		while ( rs.next() ) {
+			String name = rs.getString("name");
+			int score = rs.getInt("score");
+			
+		
+			System.out.println("    Name  = " + name);
+			System.out.println("    Score = " + score);
+			System.out.println(" ====================");
+		}
+	}
 	
 	//Functions for ActionListener and KeyListener
 	//Start Button
@@ -578,7 +606,12 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			} // */
 			
 			startGameBtn.setVisible(false);
+			//scoreBoardBtn.setVisible(false);
 		} 
+		/*/Open ScoreBoard
+		if(e.getSource() == scoreBoardBtn) {
+			Scoreboard scoreBoard = new Scoreboard();
+		}*/
 		
 	}
 
@@ -600,9 +633,9 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			fy = fy - GameProperties.CHARACTER_MOVE; 
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogUp.png")) );
 			frogLabel.setSize(46, 68);
-			if (fy < 0) {fy = 0;} //Keep From Going off screen
+			//if (fy < 0) {fy = 0;} //Keep From Going off screen
 			score = score + 10;
-			System.out.printf("Score: %d \n", score);
+			//System.out.printf("Score: %d \n", score);
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN){
 			fy = fy + GameProperties.CHARACTER_MOVE;
@@ -617,7 +650,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			frogLabel.setSize(65, 44);
 			if(fx < 0) {fx = 0;} //Keep From Going off screen
 			score = score + 2;
-			System.out.printf("Score: %d \n", score);
+			//System.out.printf("Score: %d \n", score);
 			
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			fx = fx + GameProperties.CHARACTER_MOVE;
@@ -625,7 +658,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			frogLabel.setSize(65, 44);
 			if (fx > 920) {fx = 920;} //Keep From Going off screen
 			score = score + 2;
-			System.out.printf("Score: %d \n", score);
+			//System.out.printf("Score: %d \n", score);
 		}
 		
 		//Update
