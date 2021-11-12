@@ -4,6 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -48,8 +55,8 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	public static int life = 3;
 	
 	//Score
-	public static String name = "";
-	public static int score = 0;
+	public static String name = "Matthew";
+	public static int score = 1275;
 	
 	//Gui Constructor 
 	public GameMain() {
@@ -473,20 +480,57 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		//To Completely Exit Program
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	} //End Gui Constructor
-	
-	public Boolean frogAlive = true;
-	
+
 	
 	//Start of Main
 	public static void main(String[] args) {
 		GameMain frogGame = new GameMain();
 		frogGame.setVisible(true);
 		
-	
+		//Declare connection and sql statement
+		Connection conn = null;
+		Statement stmt = null;
 		
-		
-		
-		
+		try {
+			Class.forName("org.sqlite.JDBC");
+			System.out.println("Database Driver Loaded");
+			
+			String dbURL = "jdbc:sqlite:playerScore.db";
+			conn = DriverManager.getConnection(dbURL);
+			
+			if (conn != null) {
+				System.out.println("Connected to database");
+				conn.setAutoCommit(false);
+				stmt = conn.createStatement();
+				
+				String sql = "CREATE TABLE IF NOT EXISTS PLAYER_SCORE" +
+				             "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+						     " NAME TEXT NOT NULL, " + 
+				             " SCORE INT NOT NULL)";
+				stmt.executeUpdate(sql);
+				conn.commit();
+				System.out.println("Table Created Successfully");
+				
+				//Insert
+				sql = "INSERT INTO PLAYER_SCORE (NAME, SCORE) VALUES " + 
+                        "('"+ name +"', '"+ score +"')";
+				stmt.executeUpdate(sql);
+				conn.commit();
+				
+
+				conn.close(); //Close Connection to DB File
+			}
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+
+				
 	} //End of Main
 	
 
