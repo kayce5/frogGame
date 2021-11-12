@@ -4,16 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 
 
 public class GameMain extends JFrame implements ActionListener, KeyListener{
@@ -29,20 +24,18 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private Road road;	
 	
 	//Graphic Labels
-	private JLabel frogLabel, waterLabel, roadLabel, lifeLabel1, lifeLabel2, lifeLabel3;
+	private JLabel frogLabel, waterLabel, roadLabel;
 	private JLabel carsLabel[];
 	private JLabel trucksLabel[];
 	private JLabel lilyPadsLabel[];
-	private JLabel frogLifeLabel[];
 	private JLabel lilyPadsOrangeLabel[];
 	
 	
-	private ImageIcon frogImage, waterImage, roadImage, lifeImage1, lifeImage2, lifeImage3;
+	private ImageIcon frogImage, waterImage, roadImage;
 	private ImageIcon carsImage[];
 	private ImageIcon trucksImage[];
 	private ImageIcon lilyPadsImage[];
 	private ImageIcon lilyPadsOrangeImage[];
-	private ImageIcon frogLifeImage[];
 	
 	
 	//Container for graphics - **set background , color etc**
@@ -81,9 +74,6 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		add(frogLabel);
 		frogLabel.setLocation(frog1.getX(), frog1.getY());
 	
-		
-		
-		
 		//**Initialize LilyPad**
 		//Array LilyPad 
 		lilyPads = new LilyPad[4];
@@ -505,9 +495,6 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		System.out.printf("Score: %d \n", score);
 	}
 
-	
-	
-	
 
 	//Functions for ActionListener and KeyListener
 	//Start Button
@@ -554,26 +541,26 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		
 		//Determine which key is pressed
 		if(e.getKeyCode() == KeyEvent.VK_UP) {
-			fy = fy - GameProperties.CHARACTER_STEP; 
+			fy = fy - GameProperties.CHARACTER_MOVE; 
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogUp.png")) );
 			//if(fy + frog1.getWidth() < 0) fy = GameProperties.SCREEN_HEIGHT; -- Need to stop frog from going off screen
 			frogLabel.setSize(46, 68);
 			score();
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN){
-			fy = fy + GameProperties.CHARACTER_STEP;
+			fy = fy + GameProperties.CHARACTER_MOVE;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDown.png")) );
 			frogLabel.setSize(44, 65);
 			//score();
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			fx = fx - GameProperties.CHARACTER_STEP;
+			fx = fx - GameProperties.CHARACTER_MOVE;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogLeft.png")) );
 			frogLabel.setSize(65, 44);
 			//score();
 			
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			fx = fx + GameProperties.CHARACTER_STEP;
+			fx = fx + GameProperties.CHARACTER_MOVE;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogRight.png")) );
 			frogLabel.setSize(65, 44);
 			//score();

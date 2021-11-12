@@ -1,6 +1,4 @@
-
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -10,7 +8,6 @@ public class LilyPad extends Sprite implements Runnable {
 	private int position; 
 	private Thread lilyT;
 	private JLabel lilyPadLabel, frogLabel;
-	private JButton startGameBtn;
 	private Frog frog1;
 	
 
@@ -37,11 +34,6 @@ public class LilyPad extends Sprite implements Runnable {
 
 	public void setMoving(Boolean moving) {
 		this.moving = moving;
-	}
-	
-	//Setter for Game Button
-	public void setStartGameBtn(JButton temp) {
-		this.startGameBtn = temp;
 	}
 	
 	//Getter Frog
@@ -196,7 +188,7 @@ public class LilyPad extends Sprite implements Runnable {
 		
 		}
 		
-		this.setMoving(true);
+		this.moving = (true);
 		
 	}
 	
