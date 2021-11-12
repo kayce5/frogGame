@@ -1,4 +1,5 @@
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -98,17 +99,15 @@ public class LilyPad extends Sprite implements Runnable {
 	@Override
 	public void run() {
 		this.moving = true; 
+	
+		frogLabel.setIcon(new ImageIcon(getClass().getResource("frog.png")) );
 		
-		int fx = frog1.getX();	
-		int fy = frog1.getY();
-		
-		//Display();
-		
-		//Get current x/y
-		int lx = this.x;
-		int ly = this.y;
 		
 		while(moving) { //Code here will remain moving until moving false - infinate loop
+			//Get current x/y
+			int lx = this.x;
+			int ly = this.y;
+			
 			//Move left to right 
 			lx = lx + GameProperties.CHARACTER_STEP;
 			
@@ -142,9 +141,6 @@ public class LilyPad extends Sprite implements Runnable {
 		int fx = frog1.getX();
 		int fy = frog1.getY();
 		
-		//boolean onLilyPad = false;
-		
-		
 		if (this.rectangle.intersects(frog1.getRectangle())) {
 			//onLilyPad = true;
 			frog1.setOnLilyPad(true, this.position);
@@ -153,12 +149,39 @@ public class LilyPad extends Sprite implements Runnable {
 		}
 		
 		//Need frog to die if he hits water unless he is on lilypad
-		if(fy <= 335 && fy >= 40 && !frog1.checkFrogLilyPad()) {
-			System.out.println("In water");
-			JOptionPane.showMessageDialog(null, "You hit the water");
+		if(fy <= 335 && fy >= 40  && !frog1.checkFrogLilyPad()) {
+			this.moving = (false);
 			frog1.setX(480);
 			frog1.setY(700);
 			frogLabel.setLocation(frog1.getX(), frog1.getY());
+			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDead.png")) );
+			//Decide options based on lives
+			GameMain.life = GameMain.life - 1;
+			if(GameMain.life != 0) {
+				frog1.setX(480);
+				frog1.setY(700);
+				frogLabel.setLocation(frog1.getX(), frog1.getY());
+				JOptionPane.showMessageDialog(null, "You now have lives: " + GameMain.life);
+				frogLabel.setIcon(new ImageIcon(getClass().getResource("frog.png")) );
+			} else {
+				frog1.setX(480);
+				frog1.setY(700);
+				frogLabel.setLocation(frog1.getX(), frog1.getY());
+				JOptionPane.showMessageDialog(null, "You now have lives: " + GameMain.life);
+				GameMain.name = JOptionPane.showInputDialog("What is your name?");
+				JOptionPane.showMessageDialog(null, "Youre score is: " + GameMain.score);
+				int input = JOptionPane.showConfirmDialog(null, "Sorry you are out of lives ! \nWould you like to play again? ", "Gameover!", JOptionPane.YES_NO_OPTION);
+				if(input == 0) {
+					System.out.println("You clicked yes and would like to play again");
+					GameMain frogGame = new GameMain();
+					frogGame.setVisible(true);
+					GameMain.life = 3;
+					GameMain.score = 0;
+				} else {
+					System.exit(0);
+				}//End of 2nd else
+
+			} //End of 1st else
 			
 		} else if (this.rectangle.intersects(frog1.getRectangle())) {
 			//System.out.print("Colision LilyPad");
@@ -172,6 +195,9 @@ public class LilyPad extends Sprite implements Runnable {
 			frogLabel.setLocation(fx, fy);
 		
 		}
+		
+		this.setMoving(true);
+		
 	}
 	
 }

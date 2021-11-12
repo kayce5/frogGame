@@ -21,9 +21,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	
 	//Storage Classes
 	private Frog frog1;
-	private LilyPad lilyPad;
-	private LilyPadOrange lilyPadOrange;
-	private Car cars[]; 
+	private Car cars[];
 	private LilyPad lilyPads[];
 	private LilyPadOrange lilyPadsOrange[];
 	private Truck trucks[];
@@ -31,18 +29,21 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private Road road;	
 	
 	//Graphic Labels
-	private JLabel frogLabel, lilyPadLabel, lilyPadOrangeLabel ,waterLabel, roadLabel, lifeLabel1, lifeLabel2, lifeLabel3;
+	private JLabel frogLabel, waterLabel, roadLabel, lifeLabel1, lifeLabel2, lifeLabel3;
 	private JLabel carsLabel[];
 	private JLabel trucksLabel[];
 	private JLabel lilyPadsLabel[];
+	private JLabel frogLifeLabel[];
 	private JLabel lilyPadsOrangeLabel[];
 	
 	
-	private ImageIcon frogImage, lilyPadImage, lilyPadOrangeImage, waterImage, roadImage, lifeImage1, lifeImage2, lifeImage3;
+	private ImageIcon frogImage, waterImage, roadImage, lifeImage1, lifeImage2, lifeImage3;
 	private ImageIcon carsImage[];
 	private ImageIcon trucksImage[];
 	private ImageIcon lilyPadsImage[];
 	private ImageIcon lilyPadsOrangeImage[];
+	private ImageIcon frogLifeImage[];
+	
 	
 	//Container for graphics - **set background , color etc**
 	private Container content; 
@@ -54,6 +55,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	public static int life = 3;
 	
 	//Score
+	public static String name = "";
 	public static int score = 0;
 	
 	//Gui Constructor 
@@ -79,6 +81,9 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		add(frogLabel);
 		frogLabel.setLocation(frog1.getX(), frog1.getY());
 	
+		
+		
+		
 		//**Initialize LilyPad**
 		//Array LilyPad 
 		lilyPads = new LilyPad[4];
@@ -89,7 +94,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		
 		lilyPads[1] = new LilyPad();
 		lilyPads[1].setX(750);
-		lilyPads[1].setY(290);
+		lilyPads[1].setY(300);
 		lilyPads[1].setFilename("lilypad1.png");
 		
 		lilyPads[2] = new LilyPad();
@@ -99,9 +104,8 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		
 		lilyPads[3] = new LilyPad();
 		lilyPads[3].setX(400);
-		lilyPads[3].setY(290);
+		lilyPads[3].setY(300);
 		lilyPads[3].setFilename("lilypad1.png");
-		
 		
 		//For loop for Array LilyPad Labels
 		lilyPadsLabel = new JLabel[4];
@@ -165,12 +169,12 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		lilyPadsOrange = new LilyPadOrange[4];
 		lilyPadsOrange[0] = new LilyPadOrange();
 		lilyPadsOrange[0].setX(200);
-		lilyPadsOrange[0].setY(75);
+		lilyPadsOrange[0].setY(65);
 		lilyPadsOrange[0].setFilename("lilypadOrange.png");
 		
 		lilyPadsOrange[1] = new LilyPadOrange();
 		lilyPadsOrange[1].setX(750);
-		lilyPadsOrange[1].setY(75);
+		lilyPadsOrange[1].setY(65);
 		lilyPadsOrange[1].setFilename("lilypadOrange.png");
 		
 		lilyPadsOrange[2] = new LilyPadOrange();
@@ -339,11 +343,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			carsLabel[i].setVisible(cars[i].getVisible());
 		}
 		
-		//For Loop Start Game Button Cars Array
-		for(int i = 0; i < 8; i++) {
-			cars[i].setStartGameBtn(startGameBtn);
-		}
-		
+
 		//For Loop Car Label SetLocation 
 		for(int i = 0; i < 8; i++) {
 			carsLabel[i].setLocation(cars[i].getX(), cars[i].getY());
@@ -447,29 +447,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		roadImage = new ImageIcon(getClass().getResource(road.getFilename()));
 		roadLabel.setIcon(roadImage);
 		roadLabel.setSize(1000, 800);
-		
-		//Frog Life 
-		lifeLabel1 = new JLabel();
-		lifeImage1 = new ImageIcon(getClass().getResource("frogLife1.png"));
-		lifeLabel1.setIcon(lifeImage1);
-		lifeLabel1.setSize(60, 70);
-		lifeLabel1.setVisible(true);
-		add(lifeLabel1);
-		lifeLabel1.setLocation(0, 710);
-		
-		lifeLabel2 = new JLabel();
-		lifeImage2 = new ImageIcon(getClass().getResource("frogLife2.png"));
-		lifeLabel2.setIcon(lifeImage2);
-		lifeLabel2.setSize(60, 70);
-		add(lifeLabel2);
-		lifeLabel2.setLocation(60, 710);
-		
-		lifeLabel3 = new JLabel();
-		lifeImage3 = new ImageIcon(getClass().getResource("frogLife3.png"));
-		lifeLabel3.setIcon(lifeImage3);
-		lifeLabel3.setSize(60, 70);
-		add(lifeLabel3);
-		lifeLabel3.setLocation(120, 710);
+	
 		
 		//Start Button Initial 
 		startGameBtn = new JButton(" Start ");
@@ -506,14 +484,13 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	} //End Gui Constructor
 	
-	
+	public Boolean frogAlive = true;
 	
 	
 	//Start of Main
 	public static void main(String[] args) {
 		GameMain frogGame = new GameMain();
 		frogGame.setVisible(true);
-	
 		
 	
 		
@@ -527,6 +504,8 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		score = score + 10;
 		System.out.printf("Score: %d \n", score);
 	}
+
+	
 	
 	
 
@@ -560,6 +539,8 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		
 	}
 
+
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -577,7 +558,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogUp.png")) );
 			//if(fy + frog1.getWidth() < 0) fy = GameProperties.SCREEN_HEIGHT; -- Need to stop frog from going off screen
 			frogLabel.setSize(46, 68);
-			//score();
+			score();
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN){
 			fy = fy + GameProperties.CHARACTER_STEP;

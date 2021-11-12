@@ -1,6 +1,4 @@
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -9,12 +7,10 @@ public class Truck extends Sprite implements Runnable {
 	private Boolean moving, visible;
 	private Thread truckT;
 	private JLabel truckLabel, frogLabel;
-	private JButton startGameBtn;
 	private Frog frog1;
 	private Car car;
 	
 
-	//Getters and Setters
 	public Boolean getVisible() {
 		return visible;
 	}
@@ -31,18 +27,11 @@ public class Truck extends Sprite implements Runnable {
 		this.moving = moving;
 	}
 	
-	//Setter for Game Button
-	public void setStartGameBtn(JButton temp) {
-		this.startGameBtn = temp;
-	}
-	
-	//Setter for Frog
 	public void setFrog(Frog temp) {
 		this.frog1 = temp;
 	}
+
 	
-	
-	//Setter for Frog Label
 	public void setFrogLabel(JLabel temp) {
 		this.frogLabel = temp;
 	}
@@ -55,12 +44,11 @@ public class Truck extends Sprite implements Runnable {
 		this.car = car;
 	}
 	
-	//Setter for Car Label
+	
 	public void setCarLabel(JLabel temp) {
 		this.truckLabel = temp;
 	}
 	
-	//Truck Label
 	public JLabel getTruckLabel() {
 		return truckLabel;
 	}
@@ -84,10 +72,10 @@ public class Truck extends Sprite implements Runnable {
 		this.truckLabel = temp;
 	} 
 	
-	//Displaying the x and y
+	/*/Displaying the x and y
 	public void Display() {
 		System.out.println("x,y: / vis" + this.x + "," + this.y + " / " + this.visible);
-	}
+	} */
 	
 	//Move Truck Thread
 	public void moveTruck() {
@@ -99,7 +87,6 @@ public class Truck extends Sprite implements Runnable {
 	//Run Routine
 	@Override
 	public void run() {
-		System.out.printf("Lives: %d \n", GameMain.life);
 		this.moving = true; 
 		frogLabel.setIcon(new ImageIcon(getClass().getResource("frog.png")) );
 		
@@ -139,36 +126,46 @@ public class Truck extends Sprite implements Runnable {
 	}
 	
 	private void detectTruckCollision() {
-		int fx = frog1.getX();
 		int fy = frog1.getY();
+		
+		
 		if(fy <= 660 && fy >= 430 && this.rectangle.intersects(frog1.getRectangle())) {
-			System.out.print("\n Colision Truck \n");
 			System.out.println("Your on the road");
+			System.out.print("\n Colision Truck \n");
 			this.moving = (false);
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDead.png")) );
-			//car.setMoving(false);//**Cannot get to restart with car.setMoving(true);
 			
-			//Need to set up so that it gives 3 lives and then is a play again button
+			//Decide options based on lives
 			GameMain.life = GameMain.life - 1;
 			if(GameMain.life != 0) {
-				JOptionPane.showMessageDialog(null, "Uh-Oh");
-				System.out.printf("Lives: %d \n", GameMain.life);
 				frog1.setX(480);
 				frog1.setY(700);
 				frogLabel.setLocation(frog1.getX(), frog1.getY());
+				JOptionPane.showMessageDialog(null, "You now have lives: " + GameMain.life);
 				frogLabel.setIcon(new ImageIcon(getClass().getResource("frog.png")) );
 			} else {
-				JOptionPane.showMessageDialog(null, "Game Over!");
-				//Add code in here to start new game 
-				//Below makes a new game screen but does close other one ******
-				//GameMain frogGame = new GameMain();
-				//frogGame.setVisible(true);
-				//System.exit(0);
-			}			
-		}
+				frog1.setX(480);
+				frog1.setY(700);
+				frogLabel.setLocation(frog1.getX(), frog1.getY());
+				JOptionPane.showMessageDialog(null, "You now have lives: " + GameMain.life);
+				GameMain.name = JOptionPane.showInputDialog("What is your name?");
+				JOptionPane.showMessageDialog(null, "Youre score is: " + GameMain.score);
+				int input = JOptionPane.showConfirmDialog(null, "Sorry you are out of lives ! \nWould you like to play again? ", "Gameover!", JOptionPane.YES_NO_OPTION);
+				if(input == 0) {
+					System.out.println("You clicked yes and would like to play again");
+					GameMain frogGame = new GameMain();
+					frogGame.setVisible(true);
+					GameMain.life = 3;
+					GameMain.score = 0;
+				} else {
+					System.exit(0);
+				}
 
+			}
+			
+		}//End of is statement
 		this.moving = (true);
+		
 	}
-	
 	
 }
