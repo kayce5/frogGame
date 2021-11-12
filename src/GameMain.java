@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,10 +12,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.border.LineBorder;
 
 
 
@@ -70,6 +74,21 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		
 		//Make the screen open the center
 		setLocationRelativeTo(null);
+		
+		//Start Button Initial 
+		startGameBtn = new JButton();
+		startGameBtn.setBorder(BorderFactory.createBevelBorder(1, Color.white, Color.white));
+		startGameBtn.setText("<html><p style='text-align:center'>Welcome to Frogger<br />Please Click to Start Game</p></html>");
+		Color backgroundColor = Color.decode("#295c46");
+		startGameBtn.setBackground(backgroundColor);
+		startGameBtn.setFont(new Font("Arial", Font.BOLD, 20));
+		Color textColor = Color.decode("#ffffff");
+		startGameBtn.setForeground(textColor);
+		startGameBtn.setSize(300, 150);
+		startGameBtn.setLocation(350, 320); 
+		add(startGameBtn);
+		startGameBtn.setFocusable(false); //Cannot grab focus away*
+		startGameBtn.addActionListener(this); //Add action listener to the button so it will respond }
 		
 		//Initialize Frog
 		frogLabel = new JLabel();
@@ -453,20 +472,8 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		grassLabel.setIcon(grassImage);
 		grassLabel.setSize(1000, 800);
 		
-		//Start Button Initial 
-		startGameBtn = new JButton(" Start ");
-		startGameBtn.setSize(120, 40);
-		startGameBtn.setLocation(GameProperties.SCREEN_WIDTH - 150, GameProperties.SCREEN_HEIGHT - 90); 
-		add(startGameBtn);
-		startGameBtn.setFocusable(false); //Cannot grab focus away*
-		startGameBtn.addActionListener(this); //Add action listener to the button so it will respond
-		//lilyPad.setStartGameBtn(startGameBtn);
-		
-		
 		//Main content container
 		content = getContentPane();
-		Color myColor = Color.decode("#477d36");
-		content.setBackground(myColor); //**Need to fix
 		setLayout(null); //Allow to position characters on screen
 		
 
@@ -543,13 +550,8 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 
 				
 	} //End of Main
+
 	
-
-	public void score() {
-		
-	}
-
-
 	//Functions for ActionListener and KeyListener
 	//Start Button
 	@Override
