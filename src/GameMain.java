@@ -29,16 +29,17 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	private Truck trucks[];
 	private Water water;
 	private Road road;	
+	private Grass grass;
 	
 	//Graphic Labels
-	private JLabel frogLabel, waterLabel, roadLabel;
+	private JLabel frogLabel, waterLabel, roadLabel, grassLabel;
 	private JLabel carsLabel[];
 	private JLabel trucksLabel[];
 	private JLabel lilyPadsLabel[];
 	private JLabel lilyPadsOrangeLabel[];
 	
 	
-	private ImageIcon frogImage, waterImage, roadImage;
+	private ImageIcon frogImage, waterImage, roadImage, grassImage;
 	private ImageIcon carsImage[];
 	private ImageIcon trucksImage[];
 	private ImageIcon lilyPadsImage[];
@@ -56,7 +57,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	
 	//Score
 	public static String name = "Matthew";
-	public static int score = 1275;
+	public static int score = 0;
 	
 	//Gui Constructor 
 	public GameMain() {
@@ -445,6 +446,12 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		roadLabel.setIcon(roadImage);
 		roadLabel.setSize(1000, 800);
 	
+		//Initialize Grass
+		grassLabel = new JLabel();
+		grass = new Grass();
+		grassImage = new ImageIcon(getClass().getResource(grass.getFilename()));
+		grassLabel.setIcon(grassImage);
+		grassLabel.setSize(1000, 800);
 		
 		//Start Button Initial 
 		startGameBtn = new JButton(" Start ");
@@ -472,6 +479,10 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		//Add Road 
 		roadLabel.setLocation(0, 170);
 		add(roadLabel);
+		
+		//Background Image
+		grassLabel.setLocation(0, 0);
+		add(grassLabel);
 
 		//Container - Need Down here
 		content.addKeyListener(this); //Adds keylistener to main window
@@ -511,11 +522,11 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 				conn.commit();
 				System.out.println("Table Created Successfully");
 				
-				//Insert
+				/*/Insert
 				sql = "INSERT INTO PLAYER_SCORE (NAME, SCORE) VALUES " + 
                         "('"+ name +"', '"+ score +"')";
 				stmt.executeUpdate(sql);
-				conn.commit();
+				conn.commit();*/
 				
 
 				conn.close(); //Close Connection to DB File
@@ -535,8 +546,7 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	
 
 	public void score() {
-		score = score + 10;
-		System.out.printf("Score: %d \n", score);
+		
 	}
 
 
@@ -587,27 +597,33 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 		if(e.getKeyCode() == KeyEvent.VK_UP) {
 			fy = fy - GameProperties.CHARACTER_MOVE; 
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogUp.png")) );
-			//if(fy + frog1.getWidth() < 0) fy = GameProperties.SCREEN_HEIGHT; -- Need to stop frog from going off screen
 			frogLabel.setSize(46, 68);
-			score();
+			if (fy < 0) {fy = 0;} //Keep From Going off screen
+			score = score + 10;
+			System.out.printf("Score: %d \n", score);
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN){
 			fy = fy + GameProperties.CHARACTER_MOVE;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDown.png")) );
 			frogLabel.setSize(44, 65);
-			//score();
+			if (fy > 700) {fy = 700;} //Keep From Going off screen
+	
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			fx = fx - GameProperties.CHARACTER_MOVE;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogLeft.png")) );
 			frogLabel.setSize(65, 44);
-			//score();
+			if(fx < 0) {fx = 0;} //Keep From Going off screen
+			score = score + 2;
+			System.out.printf("Score: %d \n", score);
 			
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			fx = fx + GameProperties.CHARACTER_MOVE;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogRight.png")) );
 			frogLabel.setSize(65, 44);
-			//score();
+			if (fx > 920) {fx = 920;} //Keep From Going off screen
+			score = score + 2;
+			System.out.printf("Score: %d \n", score);
 		}
 		
 		//Update
