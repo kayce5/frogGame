@@ -157,6 +157,12 @@ public class LilyPadOrange extends Sprite implements Runnable {
 			frog1.setY(700);
 			frogLabel.setLocation(frog1.getX(), frog1.getY());
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDead.png")) );
+			
+			//Collide Sound
+			String filepath = "end.wav";
+			Sound sound = new Sound();
+			sound.playSound(filepath);
+			
 			//Decide options based on lives
 			GameMain.life = GameMain.life - 1;
 			if(GameMain.life != 0) {
@@ -170,57 +176,6 @@ public class LilyPadOrange extends Sprite implements Runnable {
 				frog1.setY(700);
 				frogLabel.setLocation(frog1.getX(), frog1.getY());
 				JOptionPane.showMessageDialog(null, "You now have lives: " + GameMain.life);
-				GameMain.name = JOptionPane.showInputDialog("What is your name?");
-				JOptionPane.showMessageDialog(null, "Youre score is: " + GameMain.score);
-				
-				//Declare connection and sql statement
-				Connection conn = null;
-				Statement stmt = null;
-				
-				try {
-					Class.forName("org.sqlite.JDBC");
-					//System.out.println("Database Driver Loaded");
-					
-					String dbURL = "jdbc:sqlite:playerScore.db";
-					conn = DriverManager.getConnection(dbURL);
-					
-					if (conn != null) {
-						//System.out.println("Connected to database");
-						conn.setAutoCommit(false);
-						stmt = conn.createStatement();
-						
-						String sql = "CREATE TABLE IF NOT EXISTS PLAYER_SCORE" +
-						             "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-								     " NAME TEXT NOT NULL, " + 
-						             " SCORE INT NOT NULL)";
-						stmt.executeUpdate(sql);
-						conn.commit();
-						//System.out.println("Table Created Successfully");
-						
-						//Insert
-						sql = "INSERT INTO PLAYER_SCORE (NAME, SCORE) VALUES " + 
-		                        "('"+ GameMain.name +"', '"+ GameMain.score +"')";
-						stmt.executeUpdate(sql);
-						conn.commit();//*/
-						
-						ResultSet rs = stmt.executeQuery("SELECT * FROM PLAYER_SCORE ORDER BY SCORE DESC");
-						System.out.println("     SCOREBOARD");
-						System.out.println(" ====================");
-						DisplayRecords(rs);
-						rs.close();
-						
-
-						conn.close(); //Close Connection to DB File
-					}
-					
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} catch (Exception e) {
-					e.printStackTrace();
-				} //End of Database 
-				
 				int input = JOptionPane.showConfirmDialog(null, "Sorry you are out of lives ! \nWould you like to play again? ", "Gameover!", JOptionPane.YES_NO_OPTION);
 				if(input == 0) {
 					System.out.println("You clicked yes and would like to play again");

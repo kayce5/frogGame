@@ -518,6 +518,12 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 	public static void main(String[] args) {
 		GameMain frogGame = new GameMain();
 		frogGame.setVisible(true);
+		
+		//Background Music
+		String filepath = "backmusic.wav";
+		Sound sound = new Sound();
+		sound.playSound(filepath);
+		
 		//Declare connection and sql statement
 		Connection conn = null;
 		Statement stmt = null;
@@ -633,13 +639,18 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			//if (fy < 0) {fy = 0;} //Keep From Going off screen
 			score = score + 10;
 			//System.out.printf("Score: %d \n", score);
+			String filepath = "jump.wav";
+			Sound sound = new Sound();
+			sound.playSound(filepath);
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN){
 			fy = fy + GameProperties.CHARACTER_MOVE;
 			frogLabel.setIcon(new ImageIcon(getClass().getResource("frogDown.png")) );
 			frogLabel.setSize(44, 65);
 			if (fy > 700) {fy = 700;} //Keep From Going off screen
-	
+			String filepath = "jump.wav";
+			Sound sound = new Sound();
+			sound.playSound(filepath);
 			
 		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			fx = fx - GameProperties.CHARACTER_MOVE;
@@ -647,7 +658,9 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			frogLabel.setSize(65, 44);
 			if(fx < 0) {fx = 0;} //Keep From Going off screen
 			score = score + 2;
-			//System.out.printf("Score: %d \n", score);
+			String filepath = "jump.wav";
+			Sound sound = new Sound();
+			sound.playSound(filepath);
 			
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			fx = fx + GameProperties.CHARACTER_MOVE;
@@ -655,7 +668,9 @@ public class GameMain extends JFrame implements ActionListener, KeyListener{
 			frogLabel.setSize(65, 44);
 			if (fx > 920) {fx = 920;} //Keep From Going off screen
 			score = score + 2;
-			//System.out.printf("Score: %d \n", score);
+			String filepath = "jump.wav";
+			Sound sound = new Sound();
+			sound.playSound(filepath);
 		}
 		
 		//Update

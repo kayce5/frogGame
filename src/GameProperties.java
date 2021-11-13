@@ -1,5 +1,3 @@
-import javax.swing.JLabel;
-
 //General Properties of the whole game
 
 public class GameProperties {
