@@ -1,9 +1,5 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -190,8 +186,8 @@ public class LilyPad extends Sprite implements Runnable {
 			fx = this.getX();
 			fy = this.getY();
 			
-			frog1.setX(fx + 3);
-			frog1.setY(fy + 3);
+			frog1.setX(fx + 5);
+			frog1.setY(fy + 5);
 			
 			frogLabel.setLocation(fx, fy);
 		
